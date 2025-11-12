@@ -16,6 +16,11 @@ node_modules/
 dist/
 build/
 
+# React Native / Expo
+.expo/
+**/android/app/build/
+**/ios/build/
+
 # Env
 .env
 .env.*

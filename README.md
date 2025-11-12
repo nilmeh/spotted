@@ -6,12 +6,12 @@ Stack (MVP)
 - Backend: FastAPI (Python), Postgres + pgvector for vector search
 - Embeddings: OpenAI `text-embedding-3-small` (swappable later)
 - Infra: Docker Compose (Postgres + pgvector)
-- Frontend: Next.js (to be bootstrapped under `apps/web`)
+- Mobile: React Native (Expo) under `apps/mobile`
 
 Structure
 ---------
 - `apps/api`: FastAPI service and recommendation logic
-- `apps/web`: Next.js web app (PWA-ready)
+- `apps/mobile`: React Native app (Expo)
 - `infra`: Docker compose and ops
 - `.env.example`: environment template
 
@@ -29,9 +29,10 @@ Quickstart
    - `pip install -r requirements.txt`
    - `uvicorn app.main:app --reload`
 
-4) Frontend (Next.js)
-   - Bootstrap later: `npx create-next-app@latest apps/web`
-   - Then run `npm run dev` inside `apps/web`
+4) Mobile (React Native, Expo)
+   - Bootstrap later: `npx create-expo-app apps/mobile`
+   - Then run: `cd apps/mobile && npm start` (or `npx expo start`)
+   - Recommended libs: `react-native-gesture-handler`, `react-native-reanimated`, `expo-location`
 
 Recommendation Stack (MVP)
 --------------------------
