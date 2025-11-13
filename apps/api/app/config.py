@@ -17,7 +17,7 @@ def get_settings() -> Settings:
 		openai_api_key=os.getenv("OPENAI_API_KEY", ""),
 		database_url=os.getenv(
 			"DATABASE_URL",
-			"postgresql+psycopg://postgres:postgres@localhost:5432/campuslink",
+			"postgresql+psycopg://postgres:postgres@localhost:5432/spotted",
 		),
 	)
 
