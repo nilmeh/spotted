@@ -10,7 +10,7 @@ app = FastAPI(title="CampusLink API", version="0.1.0")
 @app.on_event("startup")
 def on_startup() -> None:
 	settings = get_settings()
-	init_db_extension(settings.database_url)
+	init_db_extension()
 
 
 @app.get("/health")
