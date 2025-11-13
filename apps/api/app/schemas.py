@@ -20,3 +20,17 @@ class EmbeddingRequest(BaseModel):
 class EmbeddingResponse(BaseModel):
 	vectors: List[List[float]]
 	count: int
+
+class EventCreate(BaseModel):
+	title: str
+	description: str | None = None
+	community: str | None = None
+	event_time: datetime | None = None
+
+class Event(BaseModel):
+    id: int
+    title: str
+    description: str | None = None
+    community: str | None = None
+    event_time: datetime | None = None
+    created_at: datetime
