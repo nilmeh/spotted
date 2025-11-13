@@ -1,6 +1,15 @@
 from typing import List, Optional
 from pydantic import BaseModel
 
+class UserCreate(BaseModel):
+	name: str
+	email: str
+
+class User(BaseModel):
+	id: int
+	name: str
+	email: str
+	created_at: str
 
 class EmbeddingRequest(BaseModel):
 	texts: List[str]
