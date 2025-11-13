@@ -5,7 +5,7 @@ from .db import init_db_extension, SessionLocal
 from .schemas import EmbeddingRequest, EmbeddingResponse, UserCreate, User
 from .embeddings import embed_texts
 
-app = FastAPI(title="CampusLink API", version="0.1.0")
+app = FastAPI(title="Spotted API", version="0.1.0")
 
 def get_db():
 	db = SessionLocal()
