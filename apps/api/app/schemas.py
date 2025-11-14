@@ -1,22 +1,32 @@
 from typing import List, Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from datetime import datetime
 
 class UserCreate(BaseModel):
-	name: str
-	email: str
-	preferences: str = Field(..., min_length=5, max_length=300).strip()
+    name: str
+    email: str
+    preferences: str = Field(..., min_length=5, max_length=300)
+
+    @field_validator("preferences")
+    def clean_preferences(cls, v):
+        return v.strip()
 
 class User(BaseModel):
-	id: int
-	name: str
-	email: str
-	created_at: datetime
+    id: int
+    name: str
+    email: str
+    preferences: str
+    created_at: datetime
 	
 class UserUpdate(BaseModel):
     name: str | None = None
     email: str | None = None
-    preferences: str | None = Field(None, max_length=300)
+    preferences: str | None = Field(None, min_length=5, max_length=300)
+
+    @field_validator("preferences")
+    def clean_preferences(cls, v):
+        return v.strip() if v is not None else v
+
 
 class EmbeddingRequest(BaseModel):
 	texts: List[str]

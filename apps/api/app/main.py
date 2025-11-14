@@ -16,8 +16,14 @@ from .schemas import (
 )
 from .embeddings import embed_texts
 
-
 app = FastAPI(title="Spotted API", version="0.1.0")
+
+
+def normalize_vector(v: list[float]) -> list[float]:
+    norm = sum(x * x for x in v) ** 0.5
+    if norm == 0:
+        return v
+    return [x / norm for x in v]
 
 
 def get_db():
@@ -50,12 +56,22 @@ def create_user(user: UserCreate):
 
     row = db.execute(
         text("""
-            INSERT INTO users (name, email)
-            VALUES (:name, :email)
-            RETURNING id, name, email, created_at
+            INSERT INTO users (name, email, preferences)
+            VALUES (:name, :email, :preferences)
+            RETURNING id, name, email, preferences, created_at
         """),
         user.model_dump()
     ).mappings().first()
+
+    vector = embed_texts([user.preferences])[0]
+
+    db.execute(
+        text("""
+            INSERT INTO user_embeddings (user_id, embedding)
+            VALUES (:uid, :embedding)
+        """),
+        {"uid": row["id"], "embedding": vector}
+    )
 
     db.commit()
     return row
@@ -104,6 +120,29 @@ def create_swipe(swipe: SwipeCreate):
         swipe.model_dump()
     ).mappings().first()
 
+    event_vec = db.execute(
+        text("SELECT embedding FROM event_embeddings WHERE event_id = :eid"),
+        {"eid": swipe.event_id}
+    ).scalar()
+
+    user_vec = db.execute(
+        text("SELECT embedding FROM user_embeddings WHERE user_id = :uid"),
+        {"uid": swipe.user_id}
+    ).scalar()
+
+    # simple update rule
+    sign = 1.0 if swipe.direction == "right" else -0.25
+    updated = normalize_vector([u + sign * e for u, e in zip(user_vec, event_vec)])
+
+    db.execute(
+        text("""
+            UPDATE user_embeddings
+            SET embedding = :embedding
+            WHERE user_id = :uid
+        """),
+        {"uid": swipe.user_id, "embedding": updated}
+    )
+
     db.commit()
     return row
 
@@ -150,7 +189,7 @@ def update_user(user_id: int, payload: UserUpdate):
             UPDATE users
             SET {set_clause}
             WHERE id = :id
-            RETURNING id, name, email, created_at
+            RETURNING id, name, email, preferences, created_at
         """),
         updates
     ).mappings().first()
