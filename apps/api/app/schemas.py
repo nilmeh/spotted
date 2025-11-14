@@ -34,3 +34,8 @@ class Event(BaseModel):
     community: str | None = None
     event_time: datetime | None = None
     created_at: datetime
+
+class SwipeCreate(BaseModel):
+    user_id: int
+    event_id: int
+    direction: str  # "left" or "right"

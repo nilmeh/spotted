@@ -10,7 +10,8 @@ from .schemas import (
     EmbeddingRequest,
     EmbeddingResponse,
     EventCreate,
-    Event
+    Event,
+    SwipeCreate
 )
 from .embeddings import embed_texts
 
@@ -70,6 +71,22 @@ def create_event(event: EventCreate):
             RETURNING id, title, description, community, event_time, created_at
         """),
         event.model_dump()
+    ).mappings().first()
+
+    db.commit()
+    return row
+
+@app.post("/swipe")
+def create_swipe(swipe: SwipeCreate):
+    db = next(get_db())
+
+    row = db.execute(
+        text("""
+            INSERT INTO interactions (user_id, event_id, direction)
+            VALUES (:user_id, :event_id, :direction)
+            RETURNING id, user_id, event_id, direction, created_at
+        """),
+        swipe.model_dump()
     ).mappings().first()
 
     db.commit()
