@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from sqlalchemy import text
 from datetime import datetime
-
+from fastapi.middleware.cors import CORSMiddleware
 from .config import get_settings
 from .db import init_db_extension, SessionLocal
 from .schemas import (
@@ -49,6 +49,15 @@ def create_embeddings(payload: EmbeddingRequest) -> EmbeddingResponse:
     vectors = embed_texts(payload.texts, model=payload.model)
     return EmbeddingResponse(vectors=vectors, count=len(vectors))
 
+
+@app.get("/users/{user_id}", response_model=User)
+def get_user(user_id: int):
+    db = next(get_db())
+    row = db.execute(
+        text("SELECT id, name, email, preferences, created_at FROM users WHERE id = :id"),
+        {"id": user_id}
+    ).mappings().first()
+    return row
 
 @app.post("/users", response_model=User)
 def create_user(user: UserCreate):
@@ -209,4 +218,11 @@ def update_user(user_id: int, payload: UserUpdate):
 
     db.commit()
     return row
-   
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
