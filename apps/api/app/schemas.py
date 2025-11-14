@@ -1,16 +1,22 @@
 from typing import List, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from datetime import datetime
 
 class UserCreate(BaseModel):
 	name: str
 	email: str
+	preferences: str = Field(..., min_length=5, max_length=300).strip()
 
 class User(BaseModel):
 	id: int
 	name: str
 	email: str
 	created_at: datetime
+	
+class UserUpdate(BaseModel):
+    name: str | None = None
+    email: str | None = None
+    preferences: str | None = Field(None, max_length=300)
 
 class EmbeddingRequest(BaseModel):
 	texts: List[str]
@@ -39,3 +45,7 @@ class SwipeCreate(BaseModel):
     user_id: int
     event_id: int
     direction: str  # "left" or "right"
+
+class EventEmbedding(BaseModel):
+	event_id: int
+	embedding: List[float]

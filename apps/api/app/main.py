@@ -11,7 +11,8 @@ from .schemas import (
     EmbeddingResponse,
     EventCreate,
     Event,
-    SwipeCreate
+    SwipeCreate,
+    UserUpdate
 )
 from .embeddings import embed_texts
 
@@ -72,9 +73,23 @@ def create_event(event: EventCreate):
         """),
         event.model_dump()
     ).mappings().first()
+    
+    event_id = row["id"]
+    
+    text_to_embed = f"{row['title']}. {row['description'] or ''}".strip()    
+    vector = embed_texts([text_to_embed])[0]
+
+    db.execute(
+        text("""
+            INSERT INTO event_embeddings (event_id, embedding)
+            VALUES (:event_id, :embedding)
+        """),
+        {"event_id": event_id, "embedding": vector}
+    )
 
     db.commit()
     return row
+
 
 @app.post("/swipe")
 def create_swipe(swipe: SwipeCreate):
@@ -91,3 +106,68 @@ def create_swipe(swipe: SwipeCreate):
 
     db.commit()
     return row
+
+@app.get("/recommendations")
+def get_recommendations(user_id: int, limit: int = 20):
+    db = next(get_db())
+
+    user_vec = db.execute(
+        text("SELECT embedding FROM user_embeddings WHERE user_id = :uid"),
+        {"uid": user_id}
+    ).scalar()
+
+    if user_vec is None:
+        return []
+
+    rows = db.execute(
+        text("""
+            SELECT e.id, e.title, e.description, e.community, e.event_time,
+                   1 - (ee.embedding <=> :user_vec) AS score
+            FROM event_embeddings ee
+            JOIN events e ON e.id = ee.event_id
+            ORDER BY ee.embedding <=> :user_vec
+            LIMIT :limit
+        """),
+        {"user_vec": user_vec, "limit": limit}
+    ).mappings().all()
+
+    return rows
+
+@app.put("/users/{user_id}", response_model=User)
+def update_user(user_id: int, payload: UserUpdate):
+    db = next(get_db())
+
+    updates = {k: v for k, v in payload.model_dump().items() if v is not None}
+
+    if not updates:
+        return {"error": "No fields to update"}
+
+    set_clause = ", ".join([f"{k} = :{k}" for k in updates.keys()])
+    updates["id"] = user_id
+
+    row = db.execute(
+        text(f"""
+            UPDATE users
+            SET {set_clause}
+            WHERE id = :id
+            RETURNING id, name, email, created_at
+        """),
+        updates
+    ).mappings().first()
+
+    if payload.preferences is not None:
+        vector = embed_texts([payload.preferences])[0]
+
+        db.execute(
+            text("""
+                INSERT INTO user_embeddings (user_id, embedding)
+                VALUES (:uid, :embedding)
+                ON CONFLICT (user_id) DO UPDATE
+                SET embedding = EXCLUDED.embedding
+            """),
+            {"uid": user_id, "embedding": vector}
+        )
+
+    db.commit()
+    return row
+   
