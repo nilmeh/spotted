@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Dimensions, ActivityIndicator, Text } from 'react-native';
-import MapView, { Heatmap, Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import MapView, { Heatmap, Marker, PROVIDER_GOOGLE, Region, Callout } from 'react-native-maps';
 import Constants from 'expo-constants';
+import { LinearGradient } from 'expo-linear-gradient';
 
 type MapEventPoint = {
   id: number;
@@ -73,11 +74,11 @@ export default function MapScreen() {
         {heatPoints.length > 0 && (
           <Heatmap
             points={heatPoints}
-            radius={40}
-            opacity={0.7}
+            radius={55}
+            opacity={0.85}
             gradient={{
-              colors: ['#1a2a6c', '#2a8bdc', '#f5d76e', '#f39c12', '#e74c3c'],
-              startPoints: [0.01, 0.25, 0.5, 0.75, 1],
+              colors: ['#182848', '#2254b3', '#4fd1c5', '#f5d76e', '#ff4b5c'],
+              startPoints: [0.02, 0.25, 0.5, 0.75, 1],
               colorMapSize: 256,
             }}
           />
@@ -86,8 +87,31 @@ export default function MapScreen() {
           <Marker
             key={p.id}
             coordinate={{ latitude: p.lat, longitude: p.lng }}
-            title={p.title}
-          />
+          >
+            <Callout tooltip>
+              <View style={styles.calloutShadow}>
+                <LinearGradient
+                  colors={['rgba(12,12,18,0.95)', 'rgba(28,28,40,0.96)']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={styles.calloutContainer}
+                >
+                  <View style={styles.calloutPillRow}>
+                    <View style={styles.calloutDot} />
+                    <Text style={styles.calloutPillText}>
+                      {p.weight > 4 ? 'hot tonight' : p.weight > 2 ? 'getting warm' : 'low-key spot'}
+                    </Text>
+                  </View>
+                  <Text style={styles.calloutTitle} numberOfLines={2}>
+                    {p.title}
+                  </Text>
+                  <Text style={styles.calloutMeta}>
+                    tap card to swipe & details
+                  </Text>
+                </LinearGradient>
+              </View>
+            </Callout>
+          </Marker>
         ))}
       </MapView>
       <View style={styles.legend}>
@@ -115,6 +139,51 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
+  },
+  calloutShadow: {
+    borderRadius: 20,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.45,
+    shadowRadius: 20,
+    elevation: 10,
+  },
+  calloutContainer: {
+    minWidth: 220,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.08)',
+  },
+  calloutPillRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  calloutDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#4fd1c5',
+    marginRight: 6,
+  },
+  calloutPillText: {
+    fontSize: 11,
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+    color: 'rgba(255,255,255,0.6)',
+  },
+  calloutTitle: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#fdfdfd',
+    marginBottom: 4,
+  },
+  calloutMeta: {
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.55)',
   },
   legend: {
     position: 'absolute',

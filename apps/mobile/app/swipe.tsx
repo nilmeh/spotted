@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Dimensions, Alert, TouchableOpacity, ImageBackground } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, Dimensions, Alert, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
@@ -9,55 +9,15 @@ import Animated, {
   runOnJS,
 } from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Image } from 'react-native';
+import { fetchRecommendations, swipeEvent, getDefaultUserId } from '../src/api';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const SWIPE_THRESHOLD = 120;
 
-// Sample event data
-const sampleEvents = [
-  {
-    id: 1,
-    title: 'Popup Concert',
-    location: 'Fowler Museum',
-    date: 'Tuesday 11/18',
-    time: '6:00 pm',
-    description: 'Info, short summary about event. Include information on location, time, and predicted amount of attendees.',
-    image: require('../assets/splash-icon.png'), // placeholder
-  },
-  {
-    id: 2,
-    title: 'Food Festival',
-    location: 'Central Park',
-    date: 'Tomorrow',
-    time: '12:00 PM',
-    description: 'Taste food from 50+ vendors across different cuisines',
-    image: require('../assets/splash-icon.png'),
-  },
-  {
-    id: 3,
-    title: 'Art Gallery Opening',
-    location: 'Chelsea',
-    date: 'Friday',
-    time: '6:00 PM',
-    description: 'Contemporary art exhibition featuring emerging artists',
-    image: require('../assets/splash-icon.png'),
-  },
-  {
-    id: 4,
-    title: 'Yoga in the Park',
-    location: 'Prospect Park',
-    date: 'Saturday',
-    time: '9:00 AM',
-    description: 'Free outdoor yoga session for all levels',
-    image: require('../assets/splash-icon.png'),
-  },
-];
-
 export default function SwipeScreen() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [events, setEvents] = useState(sampleEvents);
+  const [events, setEvents] = useState<any[]>([]);
+  const userId = getDefaultUserId();
   const router = useRouter();
 
   const translateX = useSharedValue(0);
@@ -70,7 +30,28 @@ export default function SwipeScreen() {
 
   const currentEvent = events[currentIndex];
 
-  const advance = () => {
+  useEffect(() => {
+    (async () => {
+      try {
+        const recs = await fetchRecommendations(userId, 30);
+        // Map to display shape
+        const mapped = recs.map((r) => ({
+          id: r.id,
+          title: r.title,
+          location: r.community || 'Nearby',
+          date: r.event_time ? new Date(r.event_time).toLocaleDateString() : 'TBD',
+          time: r.event_time ? new Date(r.event_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '',
+          description: r.description || '',
+          image: require('../assets/splash-icon.png'), // placeholder
+        }));
+        setEvents(mapped);
+      } catch (e: any) {
+        Alert.alert('Failed to load', e?.message || 'Could not load recommendations');
+      }
+    })();
+  }, []);
+
+  const advance = async () => {
     if (currentIndex < events.length - 1) {
       setCurrentIndex(currentIndex + 1);
       // Reset animation values
@@ -78,12 +59,24 @@ export default function SwipeScreen() {
       translateY.value = 0;
       scale.value = 1;
       opacity.value = 1;
+    }
+  };
+
+  const handleSwipeAPI = async (direction: 'left' | 'right') => {
+    if (direction === 'right') {
+      try {
+        await swipeEvent({ userId, eventId: currentEvent.id, action: 'save' });
+      } catch {}
     } else {
-      // Keep simple — no blocking modal; could show a toast or small UI later
+      try {
+        await swipeEvent({ userId, eventId: currentEvent.id, action: 'pass' });
+      } catch {}
     }
   };
 
   const startFlashAndAdvance = (direction: 'left' | 'right') => {
+    handleSwipeAPI(direction); // fire API call
+
     if (direction === 'right') {
       // green flash for save
       greenOpacity.value = withTiming(0.9, { duration: 50 }, () => {
@@ -99,21 +92,6 @@ export default function SwipeScreen() {
         });
       });
     }
-  };
-
-  const handleSwipe = (direction: 'left' | 'right' | 'up') => {
-    if (direction === 'up') {
-      // Up gesture for details (keep simple)
-      Alert.alert('Event Details', currentEvent.description);
-      // reset card position
-      translateX.value = withSpring(0);
-      translateY.value = withSpring(0);
-      scale.value = withSpring(1);
-      return;
-    }
-
-    // For left/right, trigger the flash and advance after animation
-    startFlashAndAdvance(direction as 'left' | 'right');
   };
 
   const panGesture = Gesture.Pan()
@@ -132,30 +110,21 @@ export default function SwipeScreen() {
       // Swipe right (accept)
       if (e.translationX > SWIPE_THRESHOLD && absX > absY) {
         translateX.value = withSpring(SCREEN_WIDTH * 1.5, {}, () => {
-          // run green flash on UI thread then advance on JS thread
-          greenOpacity.value = withTiming(0.9, { duration: 50 }, () => {
-            greenOpacity.value = withTiming(0, { duration: 120 }, () => {
-              runOnJS(advance)();
-            });
-          });
+          runOnJS(startFlashAndAdvance)('right');
         });
       }
       // Swipe left (reject)
       else if (e.translationX < -SWIPE_THRESHOLD && absX > absY) {
         translateX.value = withSpring(-SCREEN_WIDTH * 1.5, {}, () => {
-          // run red flash on UI thread then advance on JS thread
-          redOpacity.value = withTiming(0.9, { duration: 50 }, () => {
-            redOpacity.value = withTiming(0, { duration: 120 }, () => {
-              runOnJS(advance)();
-            });
-          });
+          runOnJS(startFlashAndAdvance)('left');
         });
       }
       // Swipe up (details)
       else if (e.translationY < -SWIPE_THRESHOLD && absY > absX) {
-        translateY.value = withSpring(-SCREEN_HEIGHT, {}, () => {
-          runOnJS(handleSwipe)('up');
-        });
+        Alert.alert('Event Details', currentEvent.description);
+        translateX.value = withSpring(0);
+        translateY.value = withSpring(0);
+        scale.value = withSpring(1);
       }
       // Reset if not enough swipe
       else {
@@ -163,6 +132,18 @@ export default function SwipeScreen() {
         translateY.value = withSpring(0);
         scale.value = withSpring(1);
       }
+    });
+
+  // Long press to RSVP (hold)
+  const longPress = Gesture.LongPress()
+    .minDuration(400)
+    .onEnd(() => {
+      runOnJS(async () => {
+        try {
+          await swipeEvent({ userId, eventId: currentEvent.id, action: 'rsvp' });
+          Alert.alert('RSVP'd', `You're going: ${currentEvent.title}`);
+        } catch {}
+      })();
     });
 
   const animatedCardStyle = useAnimatedStyle(() => {
@@ -199,6 +180,11 @@ export default function SwipeScreen() {
   if (!currentEvent) {
     return (
       <View style={styles.container}>
+        <View style={styles.topBar}>
+          <TouchableOpacity style={styles.mapButton} onPress={() => router.push('/map')}>
+            <Text style={styles.mapButtonText}>Map</Text>
+          </TouchableOpacity>
+        </View>
         <Text style={styles.emptyText}>No more events!</Text>
         <Text style={styles.emptySubtext}>Check back later for more events.</Text>
       </View>
@@ -218,7 +204,7 @@ export default function SwipeScreen() {
       </View>
 
       {/* Card Container */}
-      <GestureDetector gesture={panGesture}>
+      <GestureDetector gesture={Gesture.Simultaneous(panGesture, longPress)}>
         <Animated.View style={[styles.cardContainer, animatedCardStyle]}>
           {/* Background Image */}
           <ImageBackground
@@ -272,12 +258,7 @@ export default function SwipeScreen() {
               onPress={() => {
                   // animate card offscreen then flash red and advance
                   translateX.value = withSpring(-SCREEN_WIDTH * 1.5, {}, () => {
-                    // UI-thread flash + advance
-                    redOpacity.value = withTiming(0.9, { duration: 50 }, () => {
-                      redOpacity.value = withTiming(0, { duration: 120 }, () => {
-                        runOnJS(advance)();
-                      });
-                    });
+                    runOnJS(startFlashAndAdvance)('left');
                   });
                 }}
             >
@@ -296,12 +277,7 @@ export default function SwipeScreen() {
               onPress={() => {
                 // animate card offscreen then flash green and advance
                 translateX.value = withSpring(SCREEN_WIDTH * 1.5, {}, () => {
-                  // UI-thread flash + advance
-                  greenOpacity.value = withTiming(0.9, { duration: 50 }, () => {
-                    greenOpacity.value = withTiming(0, { duration: 120 }, () => {
-                      runOnJS(advance)();
-                    });
-                  });
+                  runOnJS(startFlashAndAdvance)('right');
                 });
               }}
             >
@@ -323,6 +299,24 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 25,
     left: 0,
+  },
+  topBar: {
+    position: 'absolute',
+    top: 40,
+    right: 20,
+    zIndex: 20,
+  },
+  mapButton: {
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+    borderRadius: 18,
+    backgroundColor: '#000000aa',
+  },
+  mapButtonText: {
+    color: '#ffffff',
+    fontSize: 13,
+    letterSpacing: 1,
+    textTransform: 'uppercase',
   },
   container: {
     flex: 1,
@@ -511,12 +505,11 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#666',
     marginBottom: 10,
   },
   emptySubtext: {
     fontSize: 16,
-    color: '#ccc',
+    color: '#999',
   },
 });
-

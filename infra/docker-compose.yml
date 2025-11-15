@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   db:
     image: pgvector/pgvector:pg16
@@ -23,7 +21,50 @@ services:
     depends_on:
       - db
 
+  api:
+    build:
+      context: ../
+      dockerfile: apps/api/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@db:5432/spotted
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-}
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    working_dir: /workspace/apps/api
+    volumes:
+      - ../:/workspace
+
+  api-migrate:
+    build:
+      context: ../
+      dockerfile: apps/api/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@db:5432/spotted
+    depends_on:
+      - db
+    working_dir: /workspace/apps/api
+    command: alembic upgrade head
+    volumes:
+      - ../:/workspace
+
+  worker:
+    build:
+      context: ../
+      dockerfile: apps/api/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@db:5432/spotted
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    depends_on:
+      - db
+    working_dir: /workspace/apps/api
+    command: python -m app.worker
+    volumes:
+      - ../:/workspace
+
 volumes:
   postgres_data:
-
 
