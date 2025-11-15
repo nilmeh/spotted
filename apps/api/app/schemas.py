@@ -69,15 +69,6 @@ class Event(BaseModel):
     status: str | None = None
     created_at: datetime
 
-class SwipeDirection(str, Enum):
-	left = "left"
-	right = "right"
-
-class SwipeCreate(BaseModel):
-	user_id: int
-	event_id: int
-	direction: SwipeDirection  # "left" or "right"
-
 
 class EventEmbedding(BaseModel):
 	event_id: int
