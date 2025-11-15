@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Dimensions, Alert } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Alert, TouchableOpacity } from 'react-native';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
@@ -7,6 +7,7 @@ import Animated, {
   withSpring,
   runOnJS,
 } from 'react-native-reanimated';
+import { useRouter } from 'expo-router';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const SWIPE_THRESHOLD = 120;
@@ -46,6 +47,7 @@ const sampleEvents = [
 export default function SwipeScreen() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [events, setEvents] = useState(sampleEvents);
+  const router = useRouter();
 
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
@@ -151,6 +153,11 @@ export default function SwipeScreen() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.topBar}>
+        <TouchableOpacity style={styles.mapButton} onPress={() => router.push('/map')}>
+          <Text style={styles.mapButtonText}>Map</Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.cardContainer}>
         {/* Left overlay (Reject) */}
         <Animated.View style={[styles.overlay, styles.leftOverlay, leftOverlayStyle]}>
@@ -192,6 +199,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
+  },
+  topBar: {
+    position: 'absolute',
+    top: 40,
+    right: 20,
+    zIndex: 20,
+  },
+  mapButton: {
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+    borderRadius: 18,
+    backgroundColor: '#000000aa',
+  },
+  mapButtonText: {
+    color: '#ffffff',
+    fontSize: 13,
+    letterSpacing: 1,
+    textTransform: 'uppercase',
   },
   cardContainer: {
     width: SCREEN_WIDTH - 40,
