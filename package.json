@@ -1,0 +1,14 @@
+{
+  "name": "spotted",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "mobile": "cd apps/mobile && npm start",
+    "mobile:ios": "cd apps/mobile && npm run ios",
+    "mobile:android": "cd apps/mobile && npm run android",
+    "mobile:web": "cd apps/mobile && npm run web"
+  },
+  "dependencies": {
+    "expo": "^54.0.23"
+  }
+}
