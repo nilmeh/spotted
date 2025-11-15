@@ -49,7 +49,7 @@ class EmbeddingResponse(BaseModel):
 
 class EventCreate(BaseModel):
 	title: str
-	description: str | None = None
+	description: str
 	community: str | None = None
 	event_time: datetime | None = None
 	lat: float | None = None
@@ -60,7 +60,7 @@ class EventCreate(BaseModel):
 class Event(BaseModel):
     id: int
     title: str
-    description: str | None = None
+    description: str
     community: str | None = None
     event_time: datetime | None = None
     lat: float | None = None
@@ -77,6 +77,7 @@ class SwipeCreate(BaseModel):
 	user_id: int
 	event_id: int
 	direction: SwipeDirection  # "left" or "right"
+
 
 class EventEmbedding(BaseModel):
 	event_id: int
