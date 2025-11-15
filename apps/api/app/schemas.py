@@ -3,35 +3,38 @@ from pydantic import BaseModel, Field, field_validator
 from datetime import datetime
 from enum import Enum
 
+
 class UserCreate(BaseModel):
     name: str
     email: str
     preferences: str = Field(..., min_length=5, max_length=300)
-    lat: float | None = None
-    lng: float | None = None
-    radius_km: float | None = 5.0
+    lat: Optional[float] = None
+    lng: Optional[float] = None
+    radius_km: Optional[float] = 5.0
 
     @field_validator("preferences")
     def clean_preferences(cls, v):
         return v.strip()
+
 
 class User(BaseModel):
     id: int
     name: str
     email: str
     preferences: str
-    lat: float | None = None
-    lng: float | None = None
-    radius_km: float | None = None
+    lat: Optional[float] = None
+    lng: Optional[float] = None
+    radius_km: Optional[float] = None
     created_at: datetime
-	
+
+
 class UserUpdate(BaseModel):
-    name: str | None = None
-    email: str | None = None
-    preferences: str | None = Field(None, min_length=5, max_length=300)
-    lat: float | None = None
-    lng: float | None = None
-    radius_km: float | None = None
+    name: Optional[str] = None
+    email: Optional[str] = None
+    preferences: Optional[str] = Field(None, min_length=5, max_length=300)
+    lat: Optional[float] = None
+    lng: Optional[float] = None
+    radius_km: Optional[float] = None
 
     @field_validator("preferences")
     def clean_preferences(cls, v):
@@ -39,67 +42,84 @@ class UserUpdate(BaseModel):
 
 
 class EmbeddingRequest(BaseModel):
-	texts: List[str]
-	model: Optional[str] = "text-embedding-3-small"
+    texts: List[str]
+    model: Optional[str] = "text-embedding-3-small"
 
 
 class EmbeddingResponse(BaseModel):
-	vectors: List[List[float]]
-	count: int
+    vectors: List[List[float]]
+    count: int
+
 
 class EventCreate(BaseModel):
-	title: str
-	description: str | None = None
-	community: str | None = None
-	event_time: datetime | None = None
-	lat: float | None = None
-	lng: float | None = None
-	location_name: str | None = None
-	status: str | None = None  # default 'approved' if admin; else 'pending'
+    title: str
+    description: Optional[str] = None
+    community: Optional[str] = None
+    event_time: Optional[datetime] = None
+    lat: Optional[float] = None
+    lng: Optional[float] = None
+    location_name: Optional[str] = None
+    status: Optional[str] = None  # default 'approved' if admin; else 'pending'
+
 
 class Event(BaseModel):
     id: int
     title: str
-    description: str | None = None
-    community: str | None = None
-    event_time: datetime | None = None
-    lat: float | None = None
-    lng: float | None = None
-    location_name: str | None = None
-    status: str | None = None
+    description: Optional[str] = None
+    community: Optional[str] = None
+    event_time: Optional[datetime] = None
+    lat: Optional[float] = None
+    lng: Optional[float] = None
+    location_name: Optional[str] = None
+    status: Optional[str] = None
     created_at: datetime
 
+
 class SwipeDirection(str, Enum):
-	left = "left"
-	right = "right"
+    left = "left"
+    right = "right"
+
 
 class SwipeCreate(BaseModel):
-	user_id: int
-	event_id: int
-	direction: SwipeDirection  # "left" or "right"
+    user_id: int
+    event_id: int
+    direction: SwipeDirection  # "left" or "right"
+
 
 class EventEmbedding(BaseModel):
-	event_id: int
-	embedding: List[float]
+    event_id: int
+    embedding: List[float]
 
 
 # New swipe models (explicit actions)
 class EventSwipeAction(str, Enum):
-	save = "save"
-	pass_ = "pass"
-	rsvp = "rsvp"
+    save = "save"
+    pass_ = "pass"
+    rsvp = "rsvp"
+
 
 class PersonSwipeAction(str, Enum):
-	connect = "connect"
-	pass_ = "pass"
+    connect = "connect"
+    pass_ = "pass"
+
 
 class EventSwipeCreate(BaseModel):
-	user_id: int
-	event_id: int
-	action: EventSwipeAction
-	dwell_ms: int | None = None
+    user_id: int
+    event_id: int
+    action: EventSwipeAction
+    dwell_ms: Optional[int] = None
+
 
 class PersonSwipeCreate(BaseModel):
-	user_id: int
-	target_user_id: int
-	action: PersonSwipeAction
+    user_id: int
+    target_user_id: int
+    action: PersonSwipeAction
+
+
+class MapEventPoint(BaseModel):
+    id: int
+    title: str
+    lat: float
+    lng: float
+    weight: float
+
