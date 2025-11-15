@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Dimensions, Alert } from 'react-native';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import Animated, {
@@ -7,45 +7,15 @@ import Animated, {
   withSpring,
   runOnJS,
 } from 'react-native-reanimated';
+import { fetchRecommendations, swipeEvent, getDefaultUserId } from '../src/api';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const SWIPE_THRESHOLD = 120;
 
-// Sample event data
-const sampleEvents = [
-  {
-    id: 1,
-    title: 'Jazz Night at Blue Note',
-    location: 'Greenwich Village',
-    date: 'Tonight, 8:00 PM',
-    description: 'Live jazz performance featuring local artists',
-  },
-  {
-    id: 2,
-    title: 'Food Festival',
-    location: 'Central Park',
-    date: 'Tomorrow, 12:00 PM',
-    description: 'Taste food from 50+ vendors',
-  },
-  {
-    id: 3,
-    title: 'Art Gallery Opening',
-    location: 'Chelsea',
-    date: 'Friday, 6:00 PM',
-    description: 'Contemporary art exhibition',
-  },
-  {
-    id: 4,
-    title: 'Yoga in the Park',
-    location: 'Prospect Park',
-    date: 'Saturday, 9:00 AM',
-    description: 'Free outdoor yoga session',
-  },
-];
-
 export default function SwipeScreen() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [events, setEvents] = useState(sampleEvents);
+  const [events, setEvents] = useState<any[]>([]);
+  const userId = getDefaultUserId();
 
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
@@ -54,13 +24,36 @@ export default function SwipeScreen() {
 
   const currentEvent = events[currentIndex];
 
-  const handleSwipe = (direction: 'left' | 'right') => {
+  useEffect(() => {
+    (async () => {
+      try {
+        const recs = await fetchRecommendations(userId, 30);
+        // Map to display shape
+        const mapped = recs.map((r) => ({
+          id: r.id,
+          title: r.title,
+          location: r.community || 'Nearby',
+          date: r.event_time ? new Date(r.event_time).toLocaleString() : 'Anytime',
+          description: r.description || '',
+        }));
+        setEvents(mapped);
+      } catch (e: any) {
+        Alert.alert('Failed to load', e?.message || 'Could not load recommendations');
+      }
+    })();
+  }, []);
+
+  const handleSwipe = async (direction: 'left' | 'right') => {
     if (direction === 'right') {
       // Accept/Save event
-      Alert.alert('Event Saved!', `You saved: ${currentEvent.title}`);
+      try {
+        await swipeEvent({ userId, eventId: currentEvent.id, action: 'save' });
+      } catch {}
     } else {
       // Reject/Pass event
-      Alert.alert('Event Passed', `You passed on: ${currentEvent.title}`);
+      try {
+        await swipeEvent({ userId, eventId: currentEvent.id, action: 'pass' });
+      } catch {}
     }
 
     // Move to next event
@@ -117,6 +110,18 @@ export default function SwipeScreen() {
       }
     });
 
+  // Long press to RSVP (hold)
+  const longPress = Gesture.LongPress()
+    .minDuration(400)
+    .onEnd(() => {
+      runOnJS(async () => {
+        try {
+          await swipeEvent({ userId, eventId: currentEvent.id, action: 'rsvp' });
+          Alert.alert('RSVP’d', `You’re going: ${currentEvent.title}`);
+        } catch {}
+      })();
+    });
+
   const animatedCardStyle = useAnimatedStyle(() => {
     const rotation = (translateX.value / SCREEN_WIDTH) * 20;
     return {
@@ -163,7 +168,7 @@ export default function SwipeScreen() {
         </Animated.View>
 
         {/* Event Card */}
-        <GestureDetector gesture={panGesture}>
+        <GestureDetector gesture={Gesture.Simultaneous(panGesture, longPress)}>
           <Animated.View style={[styles.card, animatedCardStyle]}>
             <View style={styles.cardContent}>
               <Text style={styles.eventTitle}>{currentEvent.title}</Text>

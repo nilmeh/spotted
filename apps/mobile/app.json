@@ -29,6 +29,10 @@
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "apiBaseUrl": "http://localhost:8000",
+      "defaultUserId": 1
+    }
   }
 }
