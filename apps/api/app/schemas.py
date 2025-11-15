@@ -87,6 +87,7 @@ class EventEmbedding(BaseModel):
 class EventSwipeAction(str, Enum):
 	save = "save"
 	pass_ = "pass"
+	rsvp = "rsvp"
 
 class PersonSwipeAction(str, Enum):
 	connect = "connect"

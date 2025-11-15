@@ -181,9 +181,9 @@ def swipe_event(payload: EventSwipeCreate, db: Session = Depends(get_db)):
 		{
 			"uid": payload.user_id,
 			"eid": payload.event_id,
-			"action": "save" if payload.action.value == "save" else "pass",
+			"action": ("rsvp" if payload.action.value == "rsvp" else ("save" if payload.action.value == "save" else "pass")),
 			"dwell": payload.dwell_ms,
-			"direction": "right" if payload.action.value == "save" else "left",
+			"direction": "right" if payload.action.value in ("save", "rsvp") else "left",
 		}
 	).mappings().first()
 
@@ -197,7 +197,8 @@ def swipe_event(payload: EventSwipeCreate, db: Session = Depends(get_db)):
 		{"uid": payload.user_id}
 	).scalar()
 	if event_vec and user_vec:
-		sign = 1.0 if payload.action.value == "save" else -0.25
+		# Stronger positive signal for RSVP than Save
+		sign = 2.0 if payload.action.value == "rsvp" else (1.0 if payload.action.value == "save" else -0.25)
 		updated = normalize_vector([u + sign * e for u, e in zip(user_vec, event_vec)])
 		db.execute(
 			text("""
@@ -275,9 +276,17 @@ def get_recommendations(user_id: int, limit: int = 20, db: Session = Depends(get
 	rows = db.execute(
 		text("""
 			WITH pop AS (
-				SELECT event_id, COUNT(*)::int AS popularity_7d
+				SELECT
+					event_id,
+					COALESCE(SUM(
+						CASE
+							WHEN action = 'rsvp' THEN 2
+							WHEN action = 'save' OR direction = 'right' THEN 1
+							ELSE 0
+						END
+					), 0)::int AS popularity_7d
 				FROM interactions
-				WHERE (direction = 'right' OR action = 'save') AND created_at >= now() - interval '7 days'
+				WHERE created_at >= now() - interval '7 days'
 				GROUP BY event_id
 			)
 			SELECT e.id, e.title, e.description, e.community, e.event_time, e.lat, e.lng, e.status,
