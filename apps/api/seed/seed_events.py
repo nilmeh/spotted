@@ -1,7 +1,12 @@
-import requests
 import json
+from pathlib import Path
 
-with open("seed_events.json") as f:
+import requests
+
+
+BASE_DIR = Path(__file__).parent
+
+with (BASE_DIR / "seed_events.json").open() as f:
     events = json.load(f)
 
 for e in events:

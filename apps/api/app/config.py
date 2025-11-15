@@ -2,6 +2,7 @@ from functools import lru_cache
 from pydantic import BaseModel
 from dotenv import load_dotenv
 import os
+from typing import Optional
 
 load_dotenv()
 
@@ -9,7 +10,7 @@ load_dotenv()
 class Settings(BaseModel):
 	openai_api_key: str
 	database_url: str
-	admin_token: str | None = None
+	admin_token: Optional[str] = None
 
 
 @lru_cache

@@ -3,10 +3,1291 @@
     "title": "UCLA ACM Hack Night",
     "description": "Coding + projects",
     "community": "UCLA",
-    "event_time": "2025-11-18T18:00:00",
+    "event_time": "2025-11-15T18:00:00",
     "lat": 34.0689,
     "lng": -118.4452,
     "location_name": "Ackerman Union",
     "status": "approved"
+  },
+  {
+    "title": "Startup Career Fair",
+    "description": "Meet LA's hottest startups and explore opportunities in tech, product, and design",
+    "community": "UCLA",
+    "event_time": "2025-11-15T10:00:00",
+    "lat": 34.0707,
+    "lng": -118.4438,
+    "location_name": "Pauley Pavilion",
+    "status": "approved"
+  },
+  {
+    "title": "Bruin Beats: DJ Night",
+    "description": "Student DJs spinning all night. Free entry with Bruincard",
+    "community": "UCLA",
+    "event_time": "2025-11-15T21:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Grand Ballroom",
+    "status": "approved"
+  },
+  {
+    "title": "Coffee & Code",
+    "description": "Morning study session with free coffee and bagels",
+    "community": "UCLA",
+    "event_time": "2025-11-16T08:00:00",
+    "lat": 34.0699,
+    "lng": -118.4426,
+    "location_name": "Powell Library",
+    "status": "approved"
+  },
+  {
+    "title": "Venture Capital Panel",
+    "description": "VCs from a16z, Sequoia, and Bessemer discuss what they look for in founders",
+    "community": "UCLA",
+    "event_time": "2025-11-16T17:00:00",
+    "lat": 34.0737,
+    "lng": -118.4400,
+    "location_name": "Anderson School of Management",
+    "status": "approved"
+  },
+  {
+    "title": "Sunset Yoga at the Sculpture Garden",
+    "description": "Free outdoor yoga as the sun sets over campus",
+    "community": "UCLA",
+    "event_time": "2025-11-16T17:30:00",
+    "lat": 34.0733,
+    "lng": -118.4419,
+    "location_name": "Franklin D. Murphy Sculpture Garden",
+    "status": "approved"
+  },
+  {
+    "title": "AI & Machine Learning Workshop",
+    "description": "Hands-on workshop covering transformers, LLMs, and fine-tuning. Bring your laptop.",
+    "community": "UCLA",
+    "event_time": "2025-11-16T14:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Boelter Hall 5249",
+    "status": "approved"
+  },
+  {
+    "title": "Late Night Ramen Run",
+    "description": "Group walk to Tsujita for late night ramen",
+    "community": "UCLA",
+    "event_time": "2025-11-16T23:00:00",
+    "lat": 34.0635,
+    "lng": -118.4466,
+    "location_name": "Westwood Village",
+    "status": "approved"
+  },
+  {
+    "title": "Blockchain & Web3 Summit",
+    "description": "Learn about decentralized systems, smart contracts, and the future of the internet",
+    "community": "UCLA",
+    "event_time": "2025-11-17T13:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Union",
+    "status": "approved"
+  },
+  {
+    "title": "Intramural Soccer Semifinals",
+    "description": "Come watch the best teams battle it out for a spot in the finals",
+    "community": "UCLA",
+    "event_time": "2025-11-17T15:00:00",
+    "lat": 34.0748,
+    "lng": -118.4492,
+    "location_name": "Intramural Field",
+    "status": "approved"
+  },
+  {
+    "title": "Rooftop Party @ The W",
+    "description": "21+ rooftop party in Westwood. $10 cover includes 2 drinks",
+    "community": "UCLA",
+    "event_time": "2025-11-15T22:00:00",
+    "lat": 34.0581,
+    "lng": -118.4456,
+    "location_name": "W Hotel Westwood",
+    "status": "approved"
+  },
+  {
+    "title": "Film Screening: Indie Shorts",
+    "description": "Student-made short films from UCLA's film school",
+    "community": "UCLA",
+    "event_time": "2025-11-15T19:00:00",
+    "lat": 34.0744,
+    "lng": -118.4395,
+    "location_name": "James Bridges Theater",
+    "status": "approved"
+  },
+  {
+    "title": "Thursday Night Trivia",
+    "description": "Weekly trivia night with prizes. Teams of 4-6",
+    "community": "UCLA",
+    "event_time": "2025-11-15T20:00:00",
+    "lat": 34.0635,
+    "lng": -118.4460,
+    "location_name": "BJ's Westwood",
+    "status": "approved"
+  },
+  {
+    "title": "Product Management Workshop",
+    "description": "Learn how to build products users love. Guest speaker from Meta",
+    "community": "UCLA",
+    "event_time": "2025-11-16T16:00:00",
+    "lat": 34.0737,
+    "lng": -118.4400,
+    "location_name": "Anderson School of Management",
+    "status": "approved"
+  },
+  {
+    "title": "Open Mic Night",
+    "description": "Showcase your talent: music, comedy, poetry, or spoken word",
+    "community": "UCLA",
+    "event_time": "2025-11-16T20:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Kerckhoff Coffee House",
+    "status": "approved"
+  },
+  {
+    "title": "Morning Meditation Circle",
+    "description": "Start your day centered. Guided meditation for all levels",
+    "community": "UCLA",
+    "event_time": "2025-11-17T07:00:00",
+    "lat": 34.0733,
+    "lng": -118.4419,
+    "location_name": "Franklin D. Murphy Sculpture Garden",
+    "status": "approved"
+  },
+  {
+    "title": "Cybersecurity CTF Competition",
+    "description": "Capture the flag competition. Form teams and hack!",
+    "community": "UCLA",
+    "event_time": "2025-11-17T10:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Boelter Hall",
+    "status": "approved"
+  },
+  {
+    "title": "Brunch & Networking",
+    "description": "Professional networking over brunch. Connect with alumni in tech",
+    "community": "UCLA",
+    "event_time": "2025-11-17T11:00:00",
+    "lat": 34.0635,
+    "lng": -118.4466,
+    "location_name": "The Hideout Kitchen",
+    "status": "approved"
+  },
+  {
+    "title": "Dance Marathon Kickoff",
+    "description": "12-hour dance marathon fundraiser. All proceeds go to children's hospital",
+    "community": "UCLA",
+    "event_time": "2025-11-15T12:00:00",
+    "lat": 34.0707,
+    "lng": -118.4438,
+    "location_name": "Pauley Pavilion",
+    "status": "approved"
+  },
+  {
+    "title": "LA Tech Meetup",
+    "description": "Monthly meetup for engineers, designers, and founders in LA",
+    "community": "General",
+    "event_time": "2025-11-16T18:30:00",
+    "lat": 34.0522,
+    "lng": -118.2437,
+    "location_name": "WeWork DTLA",
+    "status": "approved"
+  },
+  {
+    "title": "Farmers Market @ Westwood",
+    "description": "Fresh produce, artisan goods, and food trucks",
+    "community": "General",
+    "event_time": "2025-11-15T09:00:00",
+    "lat": 34.0635,
+    "lng": -118.4466,
+    "location_name": "Westwood Village",
+    "status": "approved"
+  },
+  {
+    "title": "House Party @ Landfair",
+    "description": "Huge house party. BYOB. DM for address",
+    "community": "UCLA",
+    "event_time": "2025-11-15T22:30:00",
+    "lat": 34.0651,
+    "lng": -118.4513,
+    "location_name": "Landfair Ave",
+    "status": "approved"
+  },
+  {
+    "title": "Resume Workshop",
+    "description": "Get your resume reviewed by career counselors and recruiters",
+    "community": "UCLA",
+    "event_time": "2025-11-16T15:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Career Center",
+    "status": "approved"
+  },
+  {
+    "title": "Basketball Pickup Games",
+    "description": "Open gym. All skill levels welcome",
+    "community": "UCLA",
+    "event_time": "2025-11-17T16:00:00",
+    "lat": 34.0730,
+    "lng": -118.4440,
+    "location_name": "John Wooden Center",
+    "status": "approved"
+  },
+  {
+    "title": "Design Sprint Workshop",
+    "description": "Learn Google's design sprint methodology from a former Googler",
+    "community": "UCLA",
+    "event_time": "2025-11-16T13:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Union",
+    "status": "approved"
+  },
+  {
+    "title": "Karaoke Night",
+    "description": "Private room karaoke. Sign up for a slot",
+    "community": "UCLA",
+    "event_time": "2025-11-16T21:00:00",
+    "lat": 34.0635,
+    "lng": -118.4466,
+    "location_name": "Norigami Westwood",
+    "status": "approved"
+  },
+  {
+    "title": "Founders Fireside Chat",
+    "description": "Q&A with founders of unicorn startups based in LA",
+    "community": "UCLA",
+    "event_time": "2025-11-17T18:00:00",
+    "lat": 34.0737,
+    "lng": -118.4400,
+    "location_name": "Anderson School of Management",
+    "status": "approved"
+  },
+  {
+    "title": "Taco Tuesday Crawl",
+    "description": "Hit up the best taco spots in Westwood",
+    "community": "UCLA",
+    "event_time": "2025-11-16T19:00:00",
+    "lat": 34.0635,
+    "lng": -118.4466,
+    "location_name": "Westwood Village",
+    "status": "approved"
+  },
+  {
+    "title": "Comedy Show: Campus Comedians",
+    "description": "Stand-up comedy featuring UCLA students. Free event",
+    "community": "UCLA",
+    "event_time": "2025-11-15T20:30:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Grand Ballroom",
+    "status": "approved"
+  },
+  {
+    "title": "Women in Tech Panel",
+    "description": "Female leaders in tech share their journeys and advice",
+    "community": "UCLA",
+    "event_time": "2025-11-17T17:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Boelter Hall",
+    "status": "approved"
+  },
+  {
+    "title": "Late Night Library Study Session",
+    "description": "Group study session with coffee and snacks provided",
+    "community": "UCLA",
+    "event_time": "2025-11-16T22:00:00",
+    "lat": 34.0699,
+    "lng": -118.4426,
+    "location_name": "Powell Library",
+    "status": "approved"
+  },
+  {
+    "title": "Bruin Walk Flash Mob",
+    "description": "Surprise dance performance on Bruin Walk. Everyone welcome to join",
+    "community": "UCLA",
+    "event_time": "2025-11-15T12:00:00",
+    "lat": 34.0709,
+    "lng": -118.4433,
+    "location_name": "Bruin Walk",
+    "status": "approved"
+  },
+  {
+    "title": "Crypto Trading Workshop",
+    "description": "Learn technical analysis and trading strategies",
+    "community": "UCLA",
+    "event_time": "2025-11-17T19:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Union",
+    "status": "approved"
+  },
+  {
+    "title": "Salsa Dancing Lessons",
+    "description": "Beginner-friendly salsa lessons. No partner needed",
+    "community": "UCLA",
+    "event_time": "2025-11-16T19:30:00",
+    "lat": 34.0730,
+    "lng": -118.4440,
+    "location_name": "John Wooden Center",
+    "status": "approved"
+  },
+  {
+    "title": "Pitch Competition Finals",
+    "description": "Student startups compete for $50K in funding",
+    "community": "UCLA",
+    "event_time": "2025-11-17T14:00:00",
+    "lat": 34.0737,
+    "lng": -118.4400,
+    "location_name": "Anderson School of Management",
+    "status": "approved"
+  },
+  {
+    "title": "Sunset Hike @ Griffith Park",
+    "description": "Group hike to catch the sunset over LA",
+    "community": "General",
+    "event_time": "2025-11-15T17:00:00",
+    "lat": 34.1341,
+    "lng": -118.2943,
+    "location_name": "Griffith Observatory",
+    "status": "approved"
+  },
+  {
+    "title": "Photography Walk: Downtown LA",
+    "description": "Explore DTLA with cameras. All levels welcome",
+    "community": "General",
+    "event_time": "2025-11-16T10:00:00",
+    "lat": 34.0522,
+    "lng": -118.2437,
+    "location_name": "Grand Central Market",
+    "status": "approved"
+  },
+  {
+    "title": "Food Truck Friday",
+    "description": "10+ food trucks on campus. Live music too",
+    "community": "UCLA",
+    "event_time": "2025-11-15T11:30:00",
+    "lat": 34.0709,
+    "lng": -118.4433,
+    "location_name": "Bruin Plaza",
+    "status": "approved"
+  },
+  {
+    "title": "Mock Interview Sessions",
+    "description": "Practice technical and behavioral interviews with recruiters",
+    "community": "UCLA",
+    "event_time": "2025-11-17T14:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Career Center",
+    "status": "approved"
+  },
+  {
+    "title": "Silent Disco",
+    "description": "Wireless headphones, 3 DJ channels. Dance under the stars",
+    "community": "UCLA",
+    "event_time": "2025-11-15T21:30:00",
+    "lat": 34.0709,
+    "lng": -118.4433,
+    "location_name": "Bruin Plaza",
+    "status": "approved"
+  },
+  {
+    "title": "USC vs UCLA Rivalry Watch Party",
+    "description": "Watch the game on the big screen with fellow Bruins",
+    "community": "UCLA",
+    "event_time": "2025-11-16T15:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Grand Ballroom",
+    "status": "approved"
+  },
+  {
+    "title": "Cooking Class: Thai Cuisine",
+    "description": "Learn to make pad thai and green curry from scratch",
+    "community": "UCLA",
+    "event_time": "2025-11-17T18:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Sproul Hall Kitchen",
+    "status": "approved"
+  },
+  {
+    "title": "Saturday Morning Run Club",
+    "description": "5K easy run around campus. All paces welcome",
+    "community": "UCLA",
+    "event_time": "2025-11-17T07:30:00",
+    "lat": 34.0709,
+    "lng": -118.4433,
+    "location_name": "Bruin Plaza",
+    "status": "approved"
+  },
+  {
+    "title": "Gaming Tournament: Super Smash Bros",
+    "description": "Bracket-style tournament. Winner gets $100 prize",
+    "community": "UCLA",
+    "event_time": "2025-11-16T18:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Union",
+    "status": "approved"
+  },
+  {
+    "title": "Mindfulness & Mental Health Workshop",
+    "description": "Learn coping strategies for stress and anxiety",
+    "community": "UCLA",
+    "event_time": "2025-11-15T16:00:00",
+    "lat": 34.0730,
+    "lng": -118.4440,
+    "location_name": "Ashe Center",
+    "status": "approved"
+  },
+  {
+    "title": "Hollywood Club Night",
+    "description": "Shuttle to Hollywood clubs. 21+ only",
+    "community": "General",
+    "event_time": "2025-11-15T22:00:00",
+    "lat": 34.0928,
+    "lng": -118.3287,
+    "location_name": "Hollywood & Vine",
+    "status": "approved"
+  },
+  {
+    "title": "Data Science Workshop",
+    "description": "Pandas, NumPy, and visualization with real datasets",
+    "community": "UCLA",
+    "event_time": "2025-11-16T14:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Mathematical Sciences Building",
+    "status": "approved"
+  },
+  {
+    "title": "Acoustic Jam Session",
+    "description": "Bring your instruments and jam with other musicians",
+    "community": "UCLA",
+    "event_time": "2025-11-17T19:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Kerckhoff Coffee House",
+    "status": "approved"
+  },
+  {
+    "title": "Beach Volleyball @ Santa Monica",
+    "description": "Beach volleyball followed by sunset at the pier",
+    "community": "General",
+    "event_time": "2025-11-16T14:00:00",
+    "lat": 34.0095,
+    "lng": -118.4977,
+    "location_name": "Santa Monica Beach",
+    "status": "approved"
+  },
+  {
+    "title": "iOS Development Workshop",
+    "description": "Build your first iPhone app with SwiftUI",
+    "community": "UCLA",
+    "event_time": "2025-11-17T13:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Boelter Hall",
+    "status": "approved"
+  },
+  {
+    "title": "Poetry Slam",
+    "description": "Compete for the title of campus poet. Sign up to perform",
+    "community": "UCLA",
+    "event_time": "2025-11-15T19:30:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Kerckhoff Coffee House",
+    "status": "approved"
+  },
+  {
+    "title": "Internship Panel: Big Tech",
+    "description": "Interns from Google, Meta, Apple share their experiences",
+    "community": "UCLA",
+    "event_time": "2025-11-16T17:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Boelter Hall",
+    "status": "approved"
+  },
+  {
+    "title": "Thrift Shopping Trip to Melrose",
+    "description": "Group trip to vintage shops on Melrose Ave",
+    "community": "General",
+    "event_time": "2025-11-16T12:00:00",
+    "lat": 34.0836,
+    "lng": -118.3465,
+    "location_name": "Melrose Avenue",
+    "status": "approved"
+  },
+  {
+    "title": "Breakfast Club: Entrepreneur Meetup",
+    "description": "Early morning meetup for student founders",
+    "community": "UCLA",
+    "event_time": "2025-11-17T08:00:00",
+    "lat": 34.0635,
+    "lng": -118.4466,
+    "location_name": "Bluestone Lane Westwood",
+    "status": "approved"
+  },
+  {
+    "title": "Art Gallery Opening: Student Works",
+    "description": "Opening reception for student art exhibition",
+    "community": "UCLA",
+    "event_time": "2025-11-15T18:00:00",
+    "lat": 34.0744,
+    "lng": -118.4395,
+    "location_name": "Broad Art Center",
+    "status": "approved"
+  },
+  {
+    "title": "Finance Club: Stock Pitch Competition",
+    "description": "Present your best investment thesis. Judges from top hedge funds",
+    "community": "UCLA",
+    "event_time": "2025-11-17T16:00:00",
+    "lat": 34.0737,
+    "lng": -118.4400,
+    "location_name": "Anderson School of Management",
+    "status": "approved"
+  },
+  {
+    "title": "Late Night Skate Session",
+    "description": "Skateboarding and longboarding around campus",
+    "community": "UCLA",
+    "event_time": "2025-11-15T23:00:00",
+    "lat": 34.0709,
+    "lng": -118.4433,
+    "location_name": "Bruin Walk",
+    "status": "approved"
+  },
+  {
+    "title": "Sushi Making Workshop",
+    "description": "Learn to roll your own sushi. Ingredients provided",
+    "community": "UCLA",
+    "event_time": "2025-11-16T18:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Sproul Hall Kitchen",
+    "status": "approved"
+  },
+  {
+    "title": "Dodgers Watch Party",
+    "description": "Watch the game with free pizza and drinks",
+    "community": "UCLA",
+    "event_time": "2025-11-16T19:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Union",
+    "status": "approved"
+  },
+  {
+    "title": "UX Design Workshop",
+    "description": "Learn user research, wireframing, and prototyping in Figma",
+    "community": "UCLA",
+    "event_time": "2025-11-17T15:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Union",
+    "status": "approved"
+  },
+  {
+    "title": "Campus Clean-Up Day",
+    "description": "Volunteer to help clean up campus. Free t-shirt and lunch",
+    "community": "UCLA",
+    "event_time": "2025-11-17T09:00:00",
+    "lat": 34.0709,
+    "lng": -118.4433,
+    "location_name": "Bruin Plaza",
+    "status": "approved"
+  },
+  {
+    "title": "DJ Workshop: Learn to Mix",
+    "description": "Beginner DJ workshop. Equipment provided",
+    "community": "UCLA",
+    "event_time": "2025-11-16T17:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Union",
+    "status": "approved"
+  },
+  {
+    "title": "Breakfast Burrito Pop-Up",
+    "description": "Free breakfast burritos while supplies last",
+    "community": "UCLA",
+    "event_time": "2025-11-15T08:00:00",
+    "lat": 34.0709,
+    "lng": -118.4433,
+    "location_name": "Bruin Plaza",
+    "status": "approved"
+  },
+  {
+    "title": "Machine Learning Reading Group",
+    "description": "Discuss recent ML papers. This week: Attention is All You Need",
+    "community": "UCLA",
+    "event_time": "2025-11-17T15:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Boelter Hall",
+    "status": "approved"
+  },
+  {
+    "title": "Improv Comedy Workshop",
+    "description": "Learn improv basics and have fun. No experience needed",
+    "community": "UCLA",
+    "event_time": "2025-11-15T18:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Union",
+    "status": "approved"
+  },
+  {
+    "title": "Brunch at Republique",
+    "description": "Group brunch reservation at one of LA's best spots",
+    "community": "General",
+    "event_time": "2025-11-17T10:30:00",
+    "lat": 34.0602,
+    "lng": -118.3431,
+    "location_name": "Republique",
+    "status": "approved"
+  },
+  {
+    "title": "Drone Racing Competition",
+    "description": "FPV drone racing. Drones provided for beginners",
+    "community": "UCLA",
+    "event_time": "2025-11-16T13:00:00",
+    "lat": 34.0748,
+    "lng": -118.4492,
+    "location_name": "Intramural Field",
+    "status": "approved"
+  },
+  {
+    "title": "Piano Concert: Student Recital",
+    "description": "Classical piano performances by talented students",
+    "community": "UCLA",
+    "event_time": "2025-11-15T19:00:00",
+    "lat": 34.0711,
+    "lng": -118.4398,
+    "location_name": "Schoenberg Hall",
+    "status": "approved"
+  },
+  {
+    "title": "Spanish Conversation Table",
+    "description": "Practice Spanish over coffee. All levels welcome",
+    "community": "UCLA",
+    "event_time": "2025-11-16T16:00:00",
+    "lat": 34.0635,
+    "lng": -118.4466,
+    "location_name": "Starbucks Westwood",
+    "status": "approved"
+  },
+  {
+    "title": "Hackathon Prep Workshop",
+    "description": "Get ready for upcoming hackathons. Tips and resources",
+    "community": "UCLA",
+    "event_time": "2025-11-17T17:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Boelter Hall",
+    "status": "approved"
+  },
+  {
+    "title": "Wine & Paint Night",
+    "description": "Paint and sip. 21+ Canvas and supplies included",
+    "community": "General",
+    "event_time": "2025-11-15T19:00:00",
+    "lat": 34.0635,
+    "lng": -118.4466,
+    "location_name": "Westwood Village",
+    "status": "approved"
+  },
+  {
+    "title": "Consulting Case Workshop",
+    "description": "Practice case interviews with consulting club members",
+    "community": "UCLA",
+    "event_time": "2025-11-16T18:00:00",
+    "lat": 34.0737,
+    "lng": -118.4400,
+    "location_name": "Anderson School of Management",
+    "status": "approved"
+  },
+  {
+    "title": "Parkour & Freerunning Jam",
+    "description": "Outdoor parkour session for all skill levels",
+    "community": "UCLA",
+    "event_time": "2025-11-17T14:00:00",
+    "lat": 34.0709,
+    "lng": -118.4433,
+    "location_name": "Bruin Plaza",
+    "status": "approved"
+  },
+  {
+    "title": "Korean BBQ Night",
+    "description": "All-you-can-eat KBBQ. Group reservation for 20",
+    "community": "General",
+    "event_time": "2025-11-16T19:00:00",
+    "lat": 34.0580,
+    "lng": -118.3900,
+    "location_name": "Koreatown",
+    "status": "approved"
+  },
+  {
+    "title": "Chess Club Tournament",
+    "description": "Weekly blitz chess tournament. All skill levels",
+    "community": "UCLA",
+    "event_time": "2025-11-15T17:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Union",
+    "status": "approved"
+  },
+  {
+    "title": "Sunset Rooftop Party",
+    "description": "Exclusive rooftop party with views of LA. Guest list only",
+    "community": "General",
+    "event_time": "2025-11-16T20:00:00",
+    "lat": 34.0522,
+    "lng": -118.2437,
+    "location_name": "Downtown LA",
+    "status": "approved"
+  },
+  {
+    "title": "Quantum Computing Talk",
+    "description": "Professor explains quantum computing in accessible terms",
+    "community": "UCLA",
+    "event_time": "2025-11-17T16:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Engineering VI",
+    "status": "approved"
+  },
+  {
+    "title": "Midnight Basketball",
+    "description": "Late night pickup basketball. Open gym until 2am",
+    "community": "UCLA",
+    "event_time": "2025-11-16T00:00:00",
+    "lat": 34.0730,
+    "lng": -118.4440,
+    "location_name": "John Wooden Center",
+    "status": "approved"
+  },
+  {
+    "title": "Rock Climbing: Beginner Session",
+    "description": "Learn to climb. Equipment and instruction included",
+    "community": "UCLA",
+    "event_time": "2025-11-17T13:00:00",
+    "lat": 34.0730,
+    "lng": -118.4440,
+    "location_name": "John Wooden Center",
+    "status": "approved"
+  },
+  {
+    "title": "Bubble Tea Crawl",
+    "description": "Hit up 5 boba spots in Westwood. Vote for best one",
+    "community": "UCLA",
+    "event_time": "2025-11-15T15:00:00",
+    "lat": 34.0635,
+    "lng": -118.4466,
+    "location_name": "Westwood Village",
+    "status": "approved"
+  },
+  {
+    "title": "Photography: Headshot Sessions",
+    "description": "Free professional headshots for LinkedIn",
+    "community": "UCLA",
+    "event_time": "2025-11-16T11:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Union",
+    "status": "approved"
+  },
+  {
+    "title": "Acoustic Open Stage",
+    "description": "Unplugged performances. Sign up for 10-minute slots",
+    "community": "UCLA",
+    "event_time": "2025-11-17T20:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Kerckhoff Coffee House",
+    "status": "approved"
+  },
+  {
+    "title": "Warehouse Rave",
+    "description": "Secret location. DM for address. 18+",
+    "community": "General",
+    "event_time": "2025-11-15T23:00:00",
+    "lat": 34.0380,
+    "lng": -118.2400,
+    "location_name": "Arts District",
+    "status": "approved"
+  },
+  {
+    "title": "Philosophy Discussion: Free Will",
+    "description": "Socratic seminar on determinism and free will",
+    "community": "UCLA",
+    "event_time": "2025-11-16T15:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Dodd Hall",
+    "status": "approved"
+  },
+  {
+    "title": "Volleyball: Sand Tournament",
+    "description": "4v4 beach volleyball tournament. Sign up as team",
+    "community": "UCLA",
+    "event_time": "2025-11-17T10:00:00",
+    "lat": 34.0730,
+    "lng": -118.4440,
+    "location_name": "Sunset Rec Sand Courts",
+    "status": "approved"
+  },
+  {
+    "title": "Virtual Reality Demo",
+    "description": "Try the latest VR games and experiences",
+    "community": "UCLA",
+    "event_time": "2025-11-15T14:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Union",
+    "status": "approved"
+  },
+  {
+    "title": "Salsa Night @ La Descarga",
+    "description": "Latin night at speakeasy bar. Salsa, bachata, reggaeton",
+    "community": "General",
+    "event_time": "2025-11-16T21:00:00",
+    "lat": 34.0928,
+    "lng": -118.3287,
+    "location_name": "Hollywood",
+    "status": "approved"
+  },
+  {
+    "title": "Book Club: Dune Discussion",
+    "description": "Monthly sci-fi book club. This month: Dune by Frank Herbert",
+    "community": "UCLA",
+    "event_time": "2025-11-17T18:00:00",
+    "lat": 34.0699,
+    "lng": -118.4426,
+    "location_name": "Powell Library",
+    "status": "approved"
+  },
+  {
+    "title": "Pancake Breakfast Fundraiser",
+    "description": "All-you-can-eat pancakes. $5 donation to charity",
+    "community": "UCLA",
+    "event_time": "2025-11-17T09:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Union",
+    "status": "approved"
+  },
+  {
+    "title": "App Development Bootcamp",
+    "description": "3-hour intensive: build and deploy a web app",
+    "community": "UCLA",
+    "event_time": "2025-11-16T10:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Boelter Hall",
+    "status": "approved"
+  },
+  {
+    "title": "Saturday Night Fever: Disco Party",
+    "description": "70s disco theme party. Dress code: sparkles and platforms",
+    "community": "UCLA",
+    "event_time": "2025-11-16T22:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Grand Ballroom",
+    "status": "approved"
+  },
+  {
+    "title": "Drone Photography Workshop",
+    "description": "Learn aerial photography with DJI drones",
+    "community": "UCLA",
+    "event_time": "2025-11-17T11:00:00",
+    "lat": 34.0748,
+    "lng": -118.4492,
+    "location_name": "Intramural Field",
+    "status": "approved"
+  },
+  {
+    "title": "Coffee Tasting: Single Origins",
+    "description": "Sample coffees from around the world. Learn brewing methods",
+    "community": "UCLA",
+    "event_time": "2025-11-15T16:00:00",
+    "lat": 34.0635,
+    "lng": -118.4466,
+    "location_name": "Philz Coffee Westwood",
+    "status": "approved"
+  },
+  {
+    "title": "Trap Yoga",
+    "description": "Yoga to hip-hop beats. Unconventional and fun",
+    "community": "UCLA",
+    "event_time": "2025-11-16T18:00:00",
+    "lat": 34.0730,
+    "lng": -118.4440,
+    "location_name": "John Wooden Center",
+    "status": "approved"
+  },
+  {
+    "title": "Sustainability Fair",
+    "description": "Learn about eco-friendly initiatives on campus",
+    "community": "UCLA",
+    "event_time": "2025-11-17T12:00:00",
+    "lat": 34.0709,
+    "lng": -118.4433,
+    "location_name": "Bruin Plaza",
+    "status": "approved"
+  },
+  {
+    "title": "Bowling Night",
+    "description": "Cosmic bowling at Pinz. Shoe rental included",
+    "community": "General",
+    "event_time": "2025-11-15T20:00:00",
+    "lat": 34.0340,
+    "lng": -118.4100,
+    "location_name": "Studio City",
+    "status": "approved"
+  },
+  {
+    "title": "Climate Tech Panel",
+    "description": "Founders and investors discuss the future of climate tech",
+    "community": "UCLA",
+    "event_time": "2025-11-16T17:00:00",
+    "lat": 34.0737,
+    "lng": -118.4400,
+    "location_name": "Anderson School of Management",
+    "status": "approved"
+  },
+  {
+    "title": "Mario Kart Tournament",
+    "description": "Rainbow Road championship. Winner takes all",
+    "community": "UCLA",
+    "event_time": "2025-11-17T19:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Union",
+    "status": "approved"
+  },
+  {
+    "title": "Sunday Funday: Beach Day",
+    "description": "Venice Beach hangout. Volleyball, skating, and chill",
+    "community": "General",
+    "event_time": "2025-11-17T11:00:00",
+    "lat": 33.9850,
+    "lng": -118.4695,
+    "location_name": "Venice Beach",
+    "status": "approved"
+  },
+  {
+    "title": "Startup Pitch Practice",
+    "description": "Pitch your startup idea and receive feedback from peers",
+    "community": "UCLA",
+    "event_time": "2025-11-15T13:00:00",
+    "lat": 34.0737,
+    "lng": -118.4400,
+    "location_name": "Anderson School of Management",
+    "status": "approved"
+  },
+  {
+    "title": "Career Panel: Women in Tech",
+    "description": "Hear from female engineers across major tech companies",
+    "community": "UCLA",
+    "event_time": "2025-11-16T16:00:00",
+    "lat": 34.0695,
+    "lng": -118.4438,
+    "location_name": "UCLA Engineering IV",
+    "status": "approved"
+  },
+  {
+    "title": "Outdoor Movie Night",
+    "description": "Screening of a popular film under the stars. Free popcorn",
+    "community": "General",
+    "event_time": "2025-11-17T19:00:00",
+    "lat": 34.0709,
+    "lng": -118.4433,
+    "location_name": "Bruin Plaza",
+    "status": "approved"
+  },
+  {
+    "title": "Coding Interview Prep Session",
+    "description": "Solve algorithm questions in groups",
+    "community": "UCLA",
+    "event_time": "2025-11-15T10:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Boelter Hall",
+    "status": "approved"
+  },
+  {
+    "title": "Comedy Night",
+    "description": "Stand-up sets by local comics. Open mic included",
+    "community": "General",
+    "event_time": "2025-11-16T20:00:00",
+    "lat": 34.0522,
+    "lng": -118.2437,
+    "location_name": "Downtown LA",
+    "status": "approved"
+  },
+  {
+    "title": "3D Printing Workshop",
+    "description": "Intro to CAD modeling + printing your design",
+    "community": "UCLA",
+    "event_time": "2025-11-17T15:00:00",
+    "lat": 34.0695,
+    "lng": -118.4438,
+    "location_name": "UCLA MakerSpace",
+    "status": "approved"
+  },
+  {
+    "title": "LA Street Food Tour",
+    "description": "Try tacos, churros, birria, and more. Bring cash",
+    "community": "General",
+    "event_time": "2025-11-15T18:00:00",
+    "lat": 34.0407,
+    "lng": -118.2468,
+    "location_name": "Grand Central Market",
+    "status": "approved"
+  },
+  {
+    "title": "Mindfulness & Meditation Circle",
+    "description": "Guided meditation for stress relief",
+    "community": "UCLA",
+    "event_time": "2025-11-16T09:00:00",
+    "lat": 34.0727,
+    "lng": -118.4454,
+    "location_name": "UCLA Sculpture Garden",
+    "status": "approved"
+  },
+  {
+    "title": "E-Sports Watch Party",
+    "description": "Watch the finals of a major esports tournament",
+    "community": "UCLA",
+    "event_time": "2025-11-17T20:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Ackerman Union",
+    "status": "approved"
+  },
+  {
+    "title": "Machine Learning for Beginners",
+    "description": "Intro workshop on ML basics and notebooks",
+    "community": "UCLA",
+    "event_time": "2025-11-15T11:00:00",
+    "lat": 34.0695,
+    "lng": -118.4438,
+    "location_name": "Engineering VI",
+    "status": "approved"
+  },
+  {
+    "title": "Vinyl Night: DJ Spins Live",
+    "description": "All-vinyl DJ set. Retro funk, soul, and house",
+    "community": "General",
+    "event_time": "2025-11-16T22:00:00",
+    "lat": 34.1016,
+    "lng": -118.3269,
+    "location_name": "Hollywood",
+    "status": "approved"
+  },
+  {
+    "title": "Board Game Marathon",
+    "description": "Catan, Codenames, Werewolf, and more. Snacks included",
+    "community": "UCLA",
+    "event_time": "2025-11-17T13:00:00",
+    "lat": 34.0730,
+    "lng": -118.4440,
+    "location_name": "John Wooden Center",
+    "status": "approved"
+  },
+  {
+    "title": "Poetry & Prose Night",
+    "description": "Share original writing or listen to others",
+    "community": "UCLA",
+    "event_time": "2025-11-15T20:00:00",
+    "lat": 34.0699,
+    "lng": -118.4426,
+    "location_name": "Powell Library",
+    "status": "approved"
+  },
+  {
+    "title": "Improv Workshop",
+    "description": "Learn improv games and practice unscripted comedy",
+    "community": "General",
+    "event_time": "2025-11-16T13:00:00",
+    "lat": 34.0522,
+    "lng": -118.2437,
+    "location_name": "Downtown LA",
+    "status": "approved"
+  },
+  {
+    "title": "Drone Racing League Tryouts",
+    "description": "Bring your drone or borrow one. Timed race course",
+    "community": "UCLA",
+    "event_time": "2025-11-17T10:00:00",
+    "lat": 34.0748,
+    "lng": -118.4492,
+    "location_name": "Intramural Field",
+    "status": "approved"
+  },
+  {
+    "title": "UCLA Startup Legal Basics",
+    "description": "Learn about incorporation, IP, and contracts for early-stage founders",
+    "community": "UCLA",
+    "event_time": "2025-11-15T12:00:00",
+    "lat": 34.0737,
+    "lng": -118.4400,
+    "location_name": "Anderson School of Management",
+    "status": "approved"
+  },
+  {
+    "title": "USC Robotics Showcase",
+    "description": "Students demo autonomous robots and new engineering projects",
+    "community": "USC",
+    "event_time": "2025-11-16T14:00:00",
+    "lat": 34.0212,
+    "lng": -118.2893,
+    "location_name": "USC Viterbi School",
+    "status": "approved"
+  },
+  {
+    "title": "UCLA K-Pop Dance Workshop",
+    "description": "Learn choreography to the latest K-pop hits",
+    "community": "UCLA",
+    "event_time": "2025-11-17T18:00:00",
+    "lat": 34.0730,
+    "lng": -118.4440,
+    "location_name": "John Wooden Center",
+    "status": "approved"
+  },
+  {
+    "title": "LA Food Trucks Festival",
+    "description": "Try tacos, ramen, burgers, and desserts from LA's best food trucks",
+    "community": "General",
+    "event_time": "2025-11-15T17:00:00",
+    "lat": 34.0635,
+    "lng": -118.4466,
+    "location_name": "Westwood Village",
+    "status": "approved"
+  },
+  {
+    "title": "UCLA Writing Center Crash Course",
+    "description": "Improve essays, résumés, and applications",
+    "community": "UCLA",
+    "event_time": "2025-11-16T11:00:00",
+    "lat": 34.0699,
+    "lng": -118.4426,
+    "location_name": "Powell Library",
+    "status": "approved"
+  },
+  {
+    "title": "Tech Founders Mixer",
+    "description": "Meet startup founders and engineers over drinks",
+    "community": "General",
+    "event_time": "2025-11-17T19:00:00",
+    "lat": 34.0407,
+    "lng": -118.2468,
+    "location_name": "Grand Central Market",
+    "status": "approved"
+  },
+  {
+    "title": "UCLA Debate Club Scrimmage",
+    "description": "Friendly debate event. All majors welcome",
+    "community": "UCLA",
+    "event_time": "2025-11-15T14:00:00",
+    "lat": 34.0689,
+    "lng": -118.4452,
+    "location_name": "Dodd Hall",
+    "status": "approved"
+  },
+  {
+    "title": "USC Film Screening: Student Shorts",
+    "description": "Watch and vote on the best student-produced films",
+    "community": "USC",
+    "event_time": "2025-11-17T20:00:00",
+    "lat": 34.0197,
+    "lng": -118.2862,
+    "location_name": "USC School of Cinematic Arts",
+    "status": "approved"
+  },
+  {
+    "title": "UCLA Astronomy Night",
+    "description": "Stargazing with telescopes + space Q&A",
+    "community": "UCLA",
+    "event_time": "2025-11-15T21:00:00",
+    "lat": 34.0686,
+    "lng": -118.4414,
+    "location_name": "UCLA Court of Sciences",
+    "status": "approved"
+  },
+  {
+    "title": "LA Night Market",
+    "description": "Vendors, desserts, merch, and live performances",
+    "community": "General",
+    "event_time": "2025-11-16T18:30:00",
+    "lat": 34.0467,
+    "lng": -118.2500,
+    "location_name": "Downtown LA",
+    "status": "approved"
+  },
+  {
+    "title": "UCLA Wellness Walk",
+    "description": "Casual campus walk to de-stress and meet new people",
+    "community": "UCLA",
+    "event_time": "2025-11-17T09:00:00",
+    "lat": 34.0712,
+    "lng": -118.4460,
+    "location_name": "Pauley Pavilion",
+    "status": "approved"
+  },
+  {
+    "title": "Photography: Sunset Shoot",
+    "description": "Learn DSLR basics while shooting golden hour portraits",
+    "community": "General",
+    "event_time": "2025-11-15T16:30:00",
+    "lat": 34.0416,
+    "lng": -118.2690,
+    "location_name": "Echo Park Lake",
+    "status": "approved"
+  },
+  {
+    "title": "UCLA Blockchain 101",
+    "description": "Crypto basics, smart contracts, and decentralized apps",
+    "community": "UCLA",
+    "event_time": "2025-11-16T15:00:00",
+    "lat": 34.0695,
+    "lng": -118.4438,
+    "location_name": "Engineering VI",
+    "status": "approved"
+  },
+  {
+    "title": "K-Town Karaoke Night",
+    "description": "Private karaoke room + snacks included",
+    "community": "General",
+    "event_time": "2025-11-17T21:00:00",
+    "lat": 34.0623,
+    "lng": -118.3087,
+    "location_name": "Koreatown",
+    "status": "approved"
+  },
+  {
+    "title": "UCLA Math Circle Challenge",
+    "description": "Solve challenging math puzzles together",
+    "community": "UCLA",
+    "event_time": "2025-11-15T10:30:00",
+    "lat": 34.0686,
+    "lng": -118.4414,
+    "location_name": "Mathematical Sciences Building",
+    "status": "approved"
   }
 ]
+
