@@ -267,9 +267,14 @@ export default function SwipeScreen() {
 
             <TouchableOpacity
               style={[styles.actionButton, styles.detailsButton]}
-              onPress={() => Alert.alert('Event Details', currentEvent.description)}
+              onPress={() => {
+                  // animate card offscreen then flash red and advance
+                  translateX.value = withSpring(-SCREEN_WIDTH * 1.5, {}, () => {
+                    runOnJS(startFlashAndAdvance)('left');
+                  });
+                }}
             >
-              <Text style={styles.detailsButtonText}>○</Text>
+              <Image source={require('../assets/Liquid_Metal.png')} style={styles.detailsButtonText} />
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -479,7 +484,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   detailsButtonText: {
-    fontSize: 32,
+    width: 10,
     color: '#fff',
   },
   saveButtonText: {
