@@ -12,3 +12,10 @@ class EmbeddingResponse(BaseModel):
 	count: int
 
 
+class MapEventPoint(BaseModel):
+	id: int
+	title: str
+	lat: float
+	lng: float
+	weight: float
+
