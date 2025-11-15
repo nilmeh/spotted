@@ -1,46 +1,56 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Dimensions, Alert, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Alert, TouchableOpacity, ImageBackground } from 'react-native';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
+  withTiming,
   runOnJS,
 } from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const SWIPE_THRESHOLD = 120;
 
 // Sample event data
 const sampleEvents = [
   {
     id: 1,
-    title: 'Jazz Night at Blue Note',
-    location: 'Greenwich Village',
-    date: 'Tonight, 8:00 PM',
-    description: 'Live jazz performance featuring local artists',
+    title: 'Popup Concert',
+    location: 'Fowler Museum',
+    date: 'Tuesday 11/18',
+    time: '6:00 pm',
+    description: 'Info, short summary about event. Include information on location, time, and predicted amount of attendees.',
+    image: require('../assets/splash-icon.png'), // placeholder
   },
   {
     id: 2,
     title: 'Food Festival',
     location: 'Central Park',
-    date: 'Tomorrow, 12:00 PM',
-    description: 'Taste food from 50+ vendors',
+    date: 'Tomorrow',
+    time: '12:00 PM',
+    description: 'Taste food from 50+ vendors across different cuisines',
+    image: require('../assets/splash-icon.png'),
   },
   {
     id: 3,
     title: 'Art Gallery Opening',
     location: 'Chelsea',
-    date: 'Friday, 6:00 PM',
-    description: 'Contemporary art exhibition',
+    date: 'Friday',
+    time: '6:00 PM',
+    description: 'Contemporary art exhibition featuring emerging artists',
+    image: require('../assets/splash-icon.png'),
   },
   {
     id: 4,
     title: 'Yoga in the Park',
     location: 'Prospect Park',
-    date: 'Saturday, 9:00 AM',
-    description: 'Free outdoor yoga session',
+    date: 'Saturday',
+    time: '9:00 AM',
+    description: 'Free outdoor yoga session for all levels',
+    image: require('../assets/splash-icon.png'),
   },
 ];
 
@@ -53,30 +63,56 @@ export default function SwipeScreen() {
   const translateY = useSharedValue(0);
   const scale = useSharedValue(1);
   const opacity = useSharedValue(1);
+  // Full-screen flash overlays for pass/save feedback
+  const redOpacity = useSharedValue(0);
+  const greenOpacity = useSharedValue(0);
 
   const currentEvent = events[currentIndex];
 
-  const handleSwipe = (direction: 'left' | 'right') => {
-    if (direction === 'right') {
-      // Accept/Save event
-      Alert.alert('Event Saved!', `You saved: ${currentEvent.title}`);
-    } else {
-      // Reject/Pass event
-      Alert.alert('Event Passed', `You passed on: ${currentEvent.title}`);
-    }
-
-    // Move to next event
+  const advance = () => {
     if (currentIndex < events.length - 1) {
       setCurrentIndex(currentIndex + 1);
+      // Reset animation values
+      translateX.value = 0;
+      translateY.value = 0;
+      scale.value = 1;
+      opacity.value = 1;
     } else {
-      Alert.alert('All Done!', 'You\'ve seen all events. Check back later for more!');
+      // Keep simple — no blocking modal; could show a toast or small UI later
+    }
+  };
+
+  const startFlashAndAdvance = (direction: 'left' | 'right') => {
+    if (direction === 'right') {
+      // green flash for save
+      greenOpacity.value = withTiming(0.9, { duration: 50 }, () => {
+        greenOpacity.value = withTiming(0, { duration: 120 }, () => {
+          runOnJS(advance)();
+        });
+      });
+    } else {
+      // red flash for pass
+      redOpacity.value = withTiming(0.9, { duration: 50 }, () => {
+        redOpacity.value = withTiming(0, { duration: 120 }, () => {
+          runOnJS(advance)();
+        });
+      });
+    }
+  };
+
+  const handleSwipe = (direction: 'left' | 'right' | 'up') => {
+    if (direction === 'up') {
+      // Up gesture for details (keep simple)
+      Alert.alert('Event Details', currentEvent.description);
+      // reset card position
+      translateX.value = withSpring(0);
+      translateY.value = withSpring(0);
+      scale.value = withSpring(1);
+      return;
     }
 
-    // Reset animation values
-    translateX.value = 0;
-    translateY.value = 0;
-    scale.value = 1;
-    opacity.value = 1;
+    // For left/right, trigger the flash and advance after animation
+    startFlashAndAdvance(direction as 'left' | 'right');
   };
 
   const panGesture = Gesture.Pan()
@@ -95,21 +131,30 @@ export default function SwipeScreen() {
       // Swipe right (accept)
       if (e.translationX > SWIPE_THRESHOLD && absX > absY) {
         translateX.value = withSpring(SCREEN_WIDTH * 1.5, {}, () => {
-          runOnJS(handleSwipe)('right');
+          // run green flash on UI thread then advance on JS thread
+          greenOpacity.value = withTiming(0.9, { duration: 50 }, () => {
+            greenOpacity.value = withTiming(0, { duration: 120 }, () => {
+              runOnJS(advance)();
+            });
+          });
         });
       }
       // Swipe left (reject)
       else if (e.translationX < -SWIPE_THRESHOLD && absX > absY) {
         translateX.value = withSpring(-SCREEN_WIDTH * 1.5, {}, () => {
-          runOnJS(handleSwipe)('left');
+          // run red flash on UI thread then advance on JS thread
+          redOpacity.value = withTiming(0.9, { duration: 50 }, () => {
+            redOpacity.value = withTiming(0, { duration: 120 }, () => {
+              runOnJS(advance)();
+            });
+          });
         });
       }
-      // Swipe up (details) - just reset for now
+      // Swipe up (details)
       else if (e.translationY < -SWIPE_THRESHOLD && absY > absX) {
-        Alert.alert('Event Details', currentEvent.description);
-        translateX.value = withSpring(0);
-        translateY.value = withSpring(0);
-        scale.value = withSpring(1);
+        translateY.value = withSpring(-SCREEN_HEIGHT, {}, () => {
+          runOnJS(handleSwipe)('up');
+        });
       }
       // Reset if not enough swipe
       else {
@@ -142,6 +187,14 @@ export default function SwipeScreen() {
     return { opacity };
   });
 
+  const redOverlayStyle = useAnimatedStyle(() => ({
+    opacity: redOpacity.value,
+  }));
+
+  const greenOverlayStyle = useAnimatedStyle(() => ({
+    opacity: greenOpacity.value,
+  }));
+
   if (!currentEvent) {
     return (
       <View style={styles.container}>
@@ -153,41 +206,111 @@ export default function SwipeScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.topBar}>
-        <TouchableOpacity style={styles.mapButton} onPress={() => router.push('/map')}>
-          <Text style={styles.mapButtonText}>Map</Text>
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.appTitle}>Spotted</Text>
+        <TouchableOpacity style={styles.settingsButton} onPress={() => router.push('/map')}>
+          <Text style={styles.settingsIcon}>⚙️</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.cardContainer}>
-        {/* Left overlay (Reject) */}
-        <Animated.View style={[styles.overlay, styles.leftOverlay, leftOverlayStyle]}>
-          <Text style={styles.overlayText}>PASS</Text>
-        </Animated.View>
 
-        {/* Right overlay (Accept) */}
-        <Animated.View style={[styles.overlay, styles.rightOverlay, rightOverlayStyle]}>
-          <Text style={styles.overlayText}>SAVE</Text>
-        </Animated.View>
+      {/* Card Container */}
+      <GestureDetector gesture={panGesture}>
+        <Animated.View style={[styles.cardContainer, animatedCardStyle]}>
+          {/* Background Image */}
+          <ImageBackground
+            source={currentEvent.image}
+            style={styles.cardBackground}
+            imageStyle={styles.backgroundImage}
+          >
+            {/* Dark Overlay */}
+            <View style={styles.darkOverlay} />
 
-        {/* Event Card */}
-        <GestureDetector gesture={panGesture}>
-          <Animated.View style={[styles.card, animatedCardStyle]}>
-            <View style={styles.cardContent}>
-              <Text style={styles.eventTitle}>{currentEvent.title}</Text>
-              <Text style={styles.eventLocation}>📍 {currentEvent.location}</Text>
-              <Text style={styles.eventDate}>📅 {currentEvent.date}</Text>
-              <Text style={styles.eventDescription}>{currentEvent.description}</Text>
+            {/* Left overlay (Pass) */}
+            <Animated.View style={[styles.swipeOverlay, styles.passOverlay, leftOverlayStyle]}>
+              <Text style={styles.swipeText}>✕</Text>
+            </Animated.View>
+
+            {/* Right overlay (Save) */}
+            <Animated.View style={[styles.swipeOverlay, styles.saveOverlay, rightOverlayStyle]}>
+              <Text style={styles.swipeText}>✓</Text>
+            </Animated.View>
+
+            {/* Content Container */}
+            <View style={styles.contentContainer}>
+              {/* Top badges */}
+              <View style={styles.badgesContainer}>
+                <View style={styles.badge}>
+                  <Text style={styles.badgeText}>{currentEvent.date}</Text>
+                </View>
+                <View style={styles.badge}>
+                  <Text style={styles.badgeText}>{currentEvent.time}</Text>
+                </View>
+              </View>
+
+              {/* Spacer */}
+              <View style={{ flex: 1 }} />
+
+              {/* Bottom content */}
+              <View style={styles.bottomContent}>
+                <Text style={styles.eventTitle}>{currentEvent.title}</Text>
+                <Text style={styles.eventLocation}>📍 {currentEvent.location}</Text>
+                <Text style={styles.eventDescription} numberOfLines={3}>
+                  {currentEvent.description}
+                </Text>
+              </View>
             </View>
-          </Animated.View>
-        </GestureDetector>
-      </View>
+          </ImageBackground>
 
-      {/* Instructions */}
-      <View style={styles.instructions}>
-        <Text style={styles.instructionText}>← Swipe left to pass</Text>
-        <Text style={styles.instructionText}>→ Swipe right to save</Text>
-        <Text style={styles.instructionText}>↑ Swipe up for details</Text>
-      </View>
+          {/* Action Buttons */}
+          <View style={styles.actionButtons}>
+            <TouchableOpacity
+              style={[styles.actionButton, styles.passButton]}
+              onPress={() => {
+                  // animate card offscreen then flash red and advance
+                  translateX.value = withSpring(-SCREEN_WIDTH * 1.5, {}, () => {
+                    // UI-thread flash + advance
+                    redOpacity.value = withTiming(0.9, { duration: 50 }, () => {
+                      redOpacity.value = withTiming(0, { duration: 120 }, () => {
+                        runOnJS(advance)();
+                      });
+                    });
+                  });
+                }}
+            >
+              <Text style={styles.passButtonText}>✕</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.actionButton, styles.detailsButton]}
+              onPress={() => Alert.alert('Event Details', currentEvent.description)}
+            >
+              <Text style={styles.detailsButtonText}>○</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.actionButton, styles.saveButton]}
+              onPress={() => {
+                // animate card offscreen then flash green and advance
+                translateX.value = withSpring(SCREEN_WIDTH * 1.5, {}, () => {
+                  // UI-thread flash + advance
+                  greenOpacity.value = withTiming(0.9, { duration: 50 }, () => {
+                    greenOpacity.value = withTiming(0, { duration: 120 }, () => {
+                      runOnJS(advance)();
+                    });
+                  });
+                });
+              }}
+            >
+              <Text style={styles.saveButtonText}>✓</Text>
+            </TouchableOpacity>
+          </View>
+        </Animated.View>
+      </GestureDetector>
+
+      {/* Full-screen flash overlays (pointerEvents none so touches pass through) - rendered last so they appear on top */}
+      <Animated.View pointerEvents="none" style={[styles.fullOverlay, styles.redFull, redOverlayStyle]} />
+      <Animated.View pointerEvents="none" style={[styles.fullOverlay, styles.greenFull, greenOverlayStyle]} />
     </View>
   );
 }
@@ -195,116 +318,198 @@ export default function SwipeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fcfcfcff',
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
+    marginBottom: 30,
+    marginTop: 10,
   },
-  topBar: {
-    position: 'absolute',
-    top: 40,
-    right: 20,
-    zIndex: 20,
-  },
-  mapButton: {
-    paddingHorizontal: 14,
-    paddingVertical: 6,
-    borderRadius: 18,
-    backgroundColor: '#000000aa',
-  },
-  mapButtonText: {
-    color: '#ffffff',
-    fontSize: 13,
-    letterSpacing: 1,
-    textTransform: 'uppercase',
-  },
-  cardContainer: {
-    width: SCREEN_WIDTH - 40,
-    height: 500,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  overlay: {
-    position: 'absolute',
-    top: 50,
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 4,
-    zIndex: 10,
-  },
-  leftOverlay: {
-    left: 20,
-    borderColor: '#FF3B30',
-    backgroundColor: 'rgba(255, 59, 48, 0.1)',
-  },
-  rightOverlay: {
-    right: 20,
-    borderColor: '#34C759',
-    backgroundColor: 'rgba(52, 199, 89, 0.1)',
-  },
-  overlayText: {
-    fontSize: 24,
-    fontWeight: 'bold',
+  appTitle: {
+    fontSize: 32,
+    fontWeight: '300',
     color: '#000',
+    letterSpacing: 2,
   },
-  card: {
-    width: '100%',
-    height: '100%',
+  settingsButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
     backgroundColor: '#fff',
-    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOpacity: 0.15,
+    shadowRadius: 3,
+    elevation: 4,
   },
-  cardContent: {
+  settingsIcon: {
+    fontSize: 24,
+  },
+  cardContainer: {
+    width: '100%',
+    height: SCREEN_HEIGHT - 200,
+    borderRadius: 20,
+    overflow: 'hidden',
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  cardBackground: {
     flex: 1,
-    padding: 30,
-    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
   },
-  eventTitle: {
-    fontSize: 32,
+  backgroundImage: {
+    resizeMode: 'cover',
+  },
+  darkOverlay: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
+  contentContainer: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'space-between',
+  },
+  badgesContainer: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  badge: {
+    backgroundColor: '#000000dd',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+  },
+  badgeText: {
+    color: '#fff',
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  swipeOverlay: {
+    position: 'absolute',
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 3,
+    top: '30%',
+  },
+  passOverlay: {
+    left: 20,
+    borderColor: '#FF3B30',
+    backgroundColor: 'rgba(255, 59, 48, 0.15)',
+  },
+  saveOverlay: {
+    right: 20,
+    borderColor: '#34C759',
+    backgroundColor: 'rgba(52, 199, 89, 0.15)',
+  },
+  swipeText: {
+    fontSize: 40,
     fontWeight: 'bold',
-    marginBottom: 15,
     color: '#000',
   },
-  eventLocation: {
-    fontSize: 18,
-    color: '#666',
-    marginBottom: 10,
+  bottomContent: {
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    borderRadius: 16,
+    padding: 16,
   },
-  eventDate: {
-    fontSize: 18,
+  eventTitle: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#000',
+    marginBottom: 8,
+  },
+  eventLocation: {
+    fontSize: 14,
     color: '#666',
-    marginBottom: 20,
+    marginBottom: 12,
   },
   eventDescription: {
-    fontSize: 16,
-    color: '#333',
-    lineHeight: 24,
-  },
-  instructions: {
-    marginTop: 40,
-    alignItems: 'center',
-  },
-  instructionText: {
     fontSize: 14,
-    color: '#999',
-    marginVertical: 4,
+    color: '#333',
+    lineHeight: 20,
+  },
+  actionButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    backgroundColor: '#f9f9f9',
+  },
+  actionButton: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  passButton: {
+    backgroundColor: '#FF3B30',
+  },
+  detailsButton: {
+    backgroundColor: '#000',
+  },
+  saveButton: {
+    backgroundColor: '#34C759',
+  },
+  passButtonText: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  detailsButtonText: {
+    fontSize: 32,
+    color: '#fff',
+  },
+  saveButtonText: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  fullOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1000,
+    elevation: 1000,
+  },
+  redFull: {
+    backgroundColor: 'rgba(255,59,48,0.9)'
+  },
+  greenFull: {
+    backgroundColor: 'rgba(52,199,89,0.9)'
   },
   emptyText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#666',
+    color: '#fff',
     marginBottom: 10,
   },
   emptySubtext: {
     fontSize: 16,
-    color: '#999',
+    color: '#ccc',
   },
 });
 
