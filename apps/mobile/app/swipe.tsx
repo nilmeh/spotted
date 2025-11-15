@@ -39,11 +39,18 @@ export default function SwipeScreen() {
         const mapped = recs.map((r) => ({
           id: r.id,
           title: r.title,
-          location: r.community || 'Nearby',
-          date: r.event_time ? new Date(r.event_time).toLocaleDateString() : 'TBD',
-          time: r.event_time ? new Date(r.event_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '',
-          description: r.description || '',
-          image: require('../assets/splash-icon.png'), // placeholder
+          location: r.community || "Nearby",
+          date: r.event_time
+            ? new Date(r.event_time).toLocaleDateString()
+            : "TBD",
+          time: r.event_time
+            ? new Date(r.event_time).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })
+            : "",
+          description: r.description || "",
+          image: require("../assets/splash-icon.jpeg"), // placeholder
         }));
         setEvents(mapped);
       } catch (e: any) {
