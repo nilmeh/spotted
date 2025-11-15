@@ -10,6 +10,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Image } from 'react-native';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const SWIPE_THRESHOLD = 120;
@@ -208,9 +209,11 @@ export default function SwipeScreen() {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.appTitle}>Spotted</Text>
+        <View style={styles.imgContainer}>
+          <Image source={require('../assets/Spotted.png')} style={styles.appTitle} />
+        </View>
         <TouchableOpacity style={styles.settingsButton} onPress={() => router.push('/map')}>
-          <Text style={styles.settingsIcon}>⚙️</Text>
+            <Text style={styles.settingsIcon}>⚙️</Text>
         </TouchableOpacity>
       </View>
 
@@ -316,6 +319,11 @@ export default function SwipeScreen() {
 }
 
 const styles = StyleSheet.create({
+  imgContainer: {
+    position: 'absolute',
+    top: 25,
+    left: 0,
+  },
   container: {
     flex: 1,
     backgroundColor: '#fcfcfcff',
@@ -324,19 +332,18 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: 20,
     marginTop: 10,
   },
   appTitle: {
-    fontSize: 32,
-    fontWeight: '300',
-    color: '#000',
-    letterSpacing: 2,
+    width: 150,
+    height: 50,
   },
   settingsButton: {
     width: 50,
+    marginTop: 22,
     height: 50,
     borderRadius: 25,
     backgroundColor: '#fff',
@@ -464,13 +471,13 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   passButton: {
-    backgroundColor: '#FF3B30',
+    backgroundColor: '#D05552',
   },
   detailsButton: {
     backgroundColor: '#000',
   },
   saveButton: {
-    backgroundColor: '#34C759',
+    backgroundColor: '#7AAD77',
   },
   passButtonText: {
     fontSize: 32,
