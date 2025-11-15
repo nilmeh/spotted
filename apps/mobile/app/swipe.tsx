@@ -274,6 +274,7 @@ export default function SwipeScreen() {
                   });
                 }}
             >
+              <Text>hi</Text>
               <Image source={require('../assets/Liquid_Metal.png')} style={styles.detailsButtonText} />
             </TouchableOpacity>
 
