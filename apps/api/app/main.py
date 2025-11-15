@@ -130,45 +130,6 @@ def create_event(event: EventCreate, db: Session = Depends(get_db)):
 	db.commit()
 	return row
 
-
-@app.post("/swipe")
-def create_swipe(swipe: SwipeCreate, db: Session = Depends(get_db)):
-	row = db.execute(
-		text("""
-			INSERT INTO interactions (user_id, event_id, direction)
-			VALUES (:user_id, :event_id, :direction)
-			RETURNING id, user_id, event_id, direction, created_at
-		"""),
-		{"user_id": swipe.user_id, "event_id": swipe.event_id, "direction": swipe.direction.value}
-	).mappings().first()
-
-	event_vec = db.execute(
-		text("SELECT embedding FROM event_embeddings WHERE event_id = :eid"),
-		{"eid": swipe.event_id}
-	).scalar()
-
-	user_vec = db.execute(
-		text("SELECT embedding FROM user_embeddings WHERE user_id = :uid"),
-		{"uid": swipe.user_id}
-	).scalar()
-
-	# simple update rule
-	sign = 1.0 if swipe.direction == SwipeDirection.right else -0.25
-	updated = normalize_vector([u + sign * e for u, e in zip(user_vec, event_vec)])
-
-	db.execute(
-		text("""
-			UPDATE user_embeddings
-			SET embedding = :embedding
-			WHERE user_id = :uid
-		"""),
-		{"uid": swipe.user_id, "embedding": updated}
-	)
-
-	db.commit()
-	return row
-
-
 @app.post("/swipe/event")
 def swipe_event(payload: EventSwipeCreate, db: Session = Depends(get_db)):
 	# Log interaction with explicit action and target_type='event'
