@@ -1,6 +1,14 @@
 Spotted Monorepo
 ===================
 
+IGNORE EVERYTHING BELOW!!!
+TO RUN USE THIS COMMAND:
+
+   cd apps/mobile
+   npm start
+
+
+
 Stack (MVP)
 -----------
 - Backend: FastAPI (Python), Postgres + pgvector for vector search
