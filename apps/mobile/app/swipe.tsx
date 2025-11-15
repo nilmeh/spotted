@@ -141,8 +141,8 @@ export default function SwipeScreen() {
       runOnJS(async () => {
         try {
           await swipeEvent({ userId, eventId: currentEvent.id, action: 'rsvp' });
-          Alert.alert('RSVP'd', `You're going: ${currentEvent.title}`);
-        } catch {}
+          Alert.alert("RSVP’d", `You’re going: ${currentEvent.title}`);
+        } catch {};
       })();
     });
 
