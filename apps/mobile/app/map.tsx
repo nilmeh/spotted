@@ -3,6 +3,7 @@ import { View, StyleSheet, Dimensions, ActivityIndicator, Text } from 'react-nat
 import MapView, { Heatmap, Marker, PROVIDER_GOOGLE, Region, Callout } from 'react-native-maps';
 import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
+import { BottomTabs } from '../components/BottomTabs';
 
 type MapEventPoint = {
   id: number;
@@ -129,6 +130,8 @@ export default function MapScreen() {
           <ActivityIndicator color="#fff" />
         </View>
       )}
+
+      <BottomTabs />
     </View>
   );
 }

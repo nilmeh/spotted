@@ -10,6 +10,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
 import { fetchRecommendations, swipeEvent, getDefaultUserId } from '../src/api';
+import { BottomTabs } from '../components/BottomTabs';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const SWIPE_THRESHOLD = 120;
@@ -198,9 +199,6 @@ export default function SwipeScreen() {
         <View style={styles.imgContainer}>
           <Image source={require('../assets/Spotted.png')} style={styles.appTitle} />
         </View>
-        <TouchableOpacity style={styles.settingsButton} onPress={() => router.push('/map')}>
-            <Text style={styles.settingsIcon}>⚙️</Text>
-        </TouchableOpacity>
       </View>
 
       {/* Card Container */}
@@ -268,14 +266,13 @@ export default function SwipeScreen() {
             <TouchableOpacity
               style={[styles.actionButton, styles.detailsButton]}
               onPress={() => {
-                  // animate card offscreen then flash red and advance
-                  translateX.value = withSpring(-SCREEN_WIDTH * 1.5, {}, () => {
-                    runOnJS(startFlashAndAdvance)('left');
-                  });
-                }}
+                // animate card upward offscreen
+                translateY.value = withSpring(-SCREEN_HEIGHT * 1.5, {}, () => {
+                  runOnJS(advance)();
+                });
+              }}
             >
-              <Text>hi</Text>
-              <Image source={require('../assets/Liquid_Metal.png')} style={styles.detailsButtonText} />
+              <Text style={styles.detailsButtonText}>○</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -296,13 +293,15 @@ export default function SwipeScreen() {
       {/* Full-screen flash overlays (pointerEvents none so touches pass through) - rendered last so they appear on top */}
       <Animated.View pointerEvents="none" style={[styles.fullOverlay, styles.redFull, redOverlayStyle]} />
       <Animated.View pointerEvents="none" style={[styles.fullOverlay, styles.greenFull, greenOverlayStyle]} />
+
+      {/* Bottom tabs (global nav) */}
+      <BottomTabs />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   imgContainer: {
-    position: 'absolute',
     top: 25,
     left: 0,
   },
@@ -331,36 +330,19 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   header: {
+    justifyContent: 'flex-start',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 32,
     marginTop: 10,
   },
   appTitle: {
     width: 150,
     height: 50,
   },
-  settingsButton: {
-    width: 50,
-    marginTop: 22,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 3,
-    elevation: 4,
-  },
-  settingsIcon: {
-    fontSize: 24,
-  },
   cardContainer: {
     width: '100%',
-    height: SCREEN_HEIGHT - 200,
+    height: SCREEN_HEIGHT - 230,
     borderRadius: 20,
     overflow: 'hidden',
     backgroundColor: '#fff',
@@ -485,7 +467,8 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   detailsButtonText: {
-    width: 10,
+    fontSize: 32,
+    fontWeight: 'bold',
     color: '#fff',
   },
   saveButtonText: {

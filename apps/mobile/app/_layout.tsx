@@ -9,6 +9,7 @@ export default function RootLayout() {
         <Stack.Screen name="login" />
         <Stack.Screen name="swipe" />
         <Stack.Screen name="map" />
+        <Stack.Screen name="profile" />
       </Stack>
     </GestureHandlerRootView>
   );
